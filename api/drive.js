@@ -32,15 +32,16 @@ export default async function handler(req, res) {
               children: await readFolder(file.id),
             };
           } else {
-            // 🔥 DIRECT LINK SEGURO PARA IFRAME
-            const directLink = `https://drive.google.com/uc?export=download&id=${file.id}`;
+            // DIRECT LINK PARA PREVIEW
+            const previewLink = `https://drive.google.com/file/d/${file.id}/preview`;
 
             return {
-              id: file.id,
-              name: file.name,
-              type: "file",
-              url: directLink, // ← REEMPLAZADO
+            id: file.id,
+            name: file.name,
+            type: "file",
+            url: previewLink,
             };
+
           }
         })
       );
