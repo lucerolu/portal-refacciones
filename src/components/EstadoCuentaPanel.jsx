@@ -1,7 +1,37 @@
+//portal-refacciones\src\components\EstadoCuentaPanel.jsx (portal-refacciones es la carpeta raiz)
+
 import { motion } from "framer-motion";
-import { ArrowLeft, PiggyBank } from "lucide-react";
+import { ArrowLeft, PiggyBank, Folder, FileText } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function EstadoCuentaPanel({ onClose, panelRef }) {
+
+  const [tree, setTree] = useState([]);
+  const [currentPath, setCurrentPath] = useState([]); // ← Navegación multinivel
+
+  // Cargar árbol desde el backend
+  useEffect(() => {
+    fetch("/api/driveEstadoCuenta")
+      .then(res => res.json())
+      .then(data => setTree(data));
+  }, []);
+
+  // Carpeta actual
+  const currentFolder = currentPath.reduce(
+    (acc, folderId) => acc.find(item => item.id === folderId)?.children || [],
+    tree
+  );
+
+  const goToFolder = (folderId) => {
+    setCurrentPath([...currentPath, folderId]);
+  };
+
+  const goBackFolder = () => {
+    setCurrentPath(currentPath.slice(0, -1));
+  };
+
+  const isRoot = currentPath.length === 0;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -16,7 +46,8 @@ export default function EstadoCuentaPanel({ onClose, panelRef }) {
         exit={{ scale: 0.8, opacity: 0 }}
         className="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-3xl relative"
       >
-        {/* Botón volver */}
+
+        {/* Botón volver al menú principal */}
         <button
           onClick={onClose}
           className="absolute top-4 left-4 flex items-center gap-2 text-gray-700 hover:text-black transition"
@@ -27,28 +58,49 @@ export default function EstadoCuentaPanel({ onClose, panelRef }) {
 
         <div className="text-center mt-4">
           <PiggyBank className="w-12 h-12 text-pink-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-6">Estado de cuenta</h2>
+          <h2 className="text-2xl font-bold mb-6">
+            Estado de cuenta
+          </h2>
 
-          {/* BOTONES INTERNOS */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-
-            {/* Opción 1 */}
-            <a
-              href="https://drive.google.com/drive/folders/18VIJ6jzTTXQ0FKUsqa3Ccdv30L15k1Qu?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-6 rounded-xl bg-pink-100 hover:bg-pink-200 transition shadow text-center cursor-pointer"
+          {/* Breadcrumb interno */}
+          {!isRoot && (
+            <button
+              onClick={goBackFolder}
+              className="mb-4 text-sm text-pink-600 underline hover:text-pink-800"
             >
-              <h3 className="font-semibold text-lg text-pink-700">Intereses y débitos</h3>
-              <p className="text-pink-600 text-sm">Por sucursal</p>
-            </a>
+              ← Regresar
+            </button>
+          )}
 
-            {/* PRÓXIMAS OPCIONES */}
-            <div className="p-6 rounded-xl bg-gray-100 text-gray-400 shadow text-center cursor-not-allowed">
-              <h3 className="font-semibold text-lg">Más módulos próximamente</h3>
-            </div>
-
+          {/* Grid dinámico */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            {currentFolder.map(item => (
+              item.type === "folder" ? (
+                <div
+                  key={item.id}
+                  onClick={() => goToFolder(item.id)}
+                  className="p-6 rounded-xl bg-pink-100 hover:bg-pink-200 transition shadow text-center cursor-pointer"
+                >
+                  <Folder className="w-8 h-8 text-pink-700 mx-auto mb-2" />
+                  <h3 className="font-semibold text-lg text-pink-700">{item.name}</h3>
+                  <p className="text-pink-600 text-sm">Carpeta</p>
+                </div>
+              ) : (
+                <a
+                  key={item.id}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-6 rounded-xl bg-pink-100 hover:bg-pink-200 transition shadow text-center cursor-pointer"
+                >
+                  <FileText className="w-8 h-8 text-pink-700 mx-auto mb-2" />
+                  <h3 className="font-semibold text-lg text-pink-700">{item.name}</h3>
+                  <p className="text-pink-600 text-sm">Archivo</p>
+                </a>
+              )
+            ))}
           </div>
+
         </div>
       </motion.div>
     </motion.div>
