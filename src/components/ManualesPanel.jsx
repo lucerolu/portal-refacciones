@@ -30,15 +30,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
           }));
         };
 
-        setDriveData([
-          {
-            id: "drive-root",
-            label: "Google Drive",
-            type: "folder",
-            children: adaptTree(json),
-          }
-        ]);
-
+        setDriveData(adaptTree(json));
       } catch (err) {
         console.error("Error loading drive:", err);
       }
