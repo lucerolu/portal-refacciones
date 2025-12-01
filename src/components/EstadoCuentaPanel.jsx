@@ -44,7 +44,7 @@ export default function EstadoCuentaPanel({ onClose, panelRef }) {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
-        className="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-3xl relative"
+        className="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-3xl relative max-h-[80vh] overflow-y-auto"
       >
 
         {/* Botón volver al menú principal */}
