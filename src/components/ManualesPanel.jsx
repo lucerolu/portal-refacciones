@@ -8,6 +8,8 @@ export default function ManualesPanel({ isOpen, onClose }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [openPanelItem, setOpenPanelItem] = useState(null);
   const [driveData, setDriveData] = useState([]);  // ← AQUÍ GUARDAMOS GOOGLE DRIVE
+  const [selectedNode, setSelectedNode] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   // 🔥 Cargar datos del backend
   useEffect(() => {
@@ -89,13 +91,45 @@ export default function ManualesPanel({ isOpen, onClose }) {
                 <MultiLevelMenu
                   data={activeSubmenu ? rightItems : []}
                   onOpenPanel={handleOpenPanel}
+                  onSelectItem={setSelectedNode}
                 />
               </div>
 
               <div className="flex-1 p-3 overflow-auto">
-                <p className="text-gray-500">
-                  Selecciona un documento o carpeta.
-                </p>
+                {!selectedNode ? (
+                <p className="text-gray-500">Selecciona un documento o carpeta.</p>
+              ) : (
+                <div className="flex flex-col h-full">
+
+                  {/* 🔥 Barra superior */}
+                  <div className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded-md mb-3">
+                    <h4 className="font-semibold text-sm">{selectedNode.label}</h4>
+
+                    {selectedNode.url && (
+                      <a
+                        href={selectedNode.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-green-600 text-white text-xs px-3 py-1 rounded-md"
+                      >
+                        Abrir en Drive
+                      </a>
+                    )}
+                  </div>
+
+                  {/* 🔥 Vista previa */}
+                  {selectedNode.type === "folder" ? (
+                    <p className="text-gray-500">Carpeta seleccionada.</p>
+                  ) : (
+                    <iframe
+                      src={selectedNode.url}
+                      className="flex-1 w-full border rounded-md"
+                      allow="fullscreen"
+                    />
+                  )}
+                </div>
+              )}
+
               </div>
             </div>
           </div>
