@@ -23,7 +23,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
         const adaptTree = (nodes) => {
           return nodes.map((n) => ({
             id: n.id,
-            label: n.name,           // ← CLAVE 
+            label: n.name || "Sin nombre",
             type: n.type === "file" ? "url" : "folder",
             url: n.url || null,
             children: n.children ? adaptTree(n.children) : [],

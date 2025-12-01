@@ -106,7 +106,8 @@ export default function MultiLevelMenu({ data, onOpenPanel }) {
     const filterTree = (nodes) =>
       nodes
         .map((n) => {
-          const matchSelf = n.label.toLowerCase().includes(q);
+          const name = n.label?.toLowerCase() || "";
+          const matchSelf = name.includes(q);
           const children = n.children ? filterTree(n.children) : [];
           if (matchSelf || children.length) {
             return { ...n, children };
