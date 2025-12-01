@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BarChart3, FileText, ChevronDown, PiggyBank, Video, ShoppingCart, BadgePercent } from "lucide-react";
+import { BarChart3, FileText, ChevronDown, PiggyBank, Video, ShoppingCart, BadgePercent, Library, Boxes, ClipboardList, Megaphone, BookOpenText, Building2, ListChecks, PackageSearch } from "lucide-react";
 import Navbar from "./Navbar";
 import ConstelacionesFondo from "./ConstelacionesFondo";
 import EstadoCuentaPanel from "./EstadoCuentaPanel";
+import ManualesPanel from "./ManualesPanel";
+
 
 // Lista de sucursales con URLs
 const sucursales = [
@@ -25,10 +27,42 @@ const sucursales = [
   { nombre: "Zapata", url: "https://docs.google.com/spreadsheets/d/1MiGMmvPkMGk6ladmFSQZ5SwaKg0oYIdffoin5yA4HBc/edit?usp=sharing" },
 ];
 
+const sucursalesBonificaciones = [
+  { nombre: "Acayucan", url: "https://docs.google.com/spreadsheets/d/1eVUFgTjYDobDFi4kPzoQu3p9m6z5DZMjjIwOh99FlDY/edit?usp=sharing" },
+  { nombre: "Campeche", url: "https://docs.google.com/spreadsheets/d/1W0rKWS7D_duMxYanmfbhRJ4rnLR3OhwlogT6eLOGBUE/edit?usp=sharing" },
+  { nombre: "Cancun", url: "https://docs.google.com/spreadsheets/d/1Lqhhfl2BxvBGCyw31XVUt-JfxbzKAX9ScgseL0kHZ0o/edit?usp=sharing" },
+  { nombre: "Chetumal", url: "https://docs.google.com/spreadsheets/d/1VaqdYAq2DFRzmrdfE74zmlcaVfeE3j14iP6GlJMa2KU/edit?usp=sharing" },
+  { nombre: "Comitan", url: "https://docs.google.com/spreadsheets/d/1sVEtfAYIhdN84b3D4jUd95InMofhSkn-C-Tk5AQuRow/edit?usp=sharing" },
+  { nombre: "Isla", url: "https://docs.google.com/spreadsheets/d/1kHjzqS0jFIZ8totCzNmLncZZNkM74-Urel_3Es_5TMc/edit?usp=sharing" },
+  { nombre: "Merida", url: "https://docs.google.com/spreadsheets/d/1tunJIzlZvkIXXcPgJFz_6iTtTSnqRO0XGbWnRD0hYZw/edit?usp=sharing" },
+  { nombre: "Puebla", url: "https://docs.google.com/spreadsheets/d/1xBi4p792inI9ri4HBlAN7RJsnORAcPOeQfcMfULXtts/edit?usp=sharing" },
+  { nombre: "Tapachula", url: "https://docs.google.com/spreadsheets/d/1HWjfnPMlVLymbxijxM7K_QTlJwet1FXJewV3oaVNNxo/edit?usp=sharing" },
+  { nombre: "Tierra blanca", url: "https://docs.google.com/spreadsheets/d/1H948pEXNl6znaEZIFn6K-Dg6riIvcgFaFFCcajcsDvQ/edit?usp=sharing" },
+  { nombre: "Tizimin", url: "https://docs.google.com/spreadsheets/d/1oW5R1h3H7ln3DhXvgS54CRWobfIdoVw3Ct0GHVbNbvY/edit?usp=sharing" },
+  { nombre: "Tuxtepec", url: "https://docs.google.com/spreadsheets/d/1cQoWZgYKqraWowlww_zY6Uqy3OzL90edFKpW4WTKjtI/edit?usp=sharing" },
+  { nombre: "Tuxtla Gtz", url: "https://docs.google.com/spreadsheets/d/1C-kq4PlyZAWTx-6cFHLsYp1fdTsWtUsvYopRFiwso9Q/edit?usp=sharing" },
+  { nombre: "Veracruz", url: "https://docs.google.com/spreadsheets/d/1q9dS7Hgr7J_EKJJgHPB2EnsXoepRAoLnTEfTyoVYY5s/edit?usp=sharing" },
+  { nombre: "Villahermosa", url: "https://docs.google.com/spreadsheets/d/1MKd8vvvxL5anT9SleXPTab3VFRhnDmzwpB1ixcHD9R8/edit?usp=sharing" },
+  { nombre: "Zapata", url: "https://docs.google.com/spreadsheets/d/14rqkAibT-QWjpFMoOzKJAf1IQrgNXm4VnO2RhAHJHNE/edit?usp=sharing" },
+];
+
+
 export default function PortalInicio() {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [estadoCuentaAbierto, setEstadoCuentaAbierto] = useState(false);
+  const [bonificacionesAbierto, setBonificacionesAbierto] = useState(false);
+  const [manualesAbierto, setManualesAbierto] = useState(false);
+  const [almacenesAbierto, setAlmacenesAbierto] = useState(false);
+  const [presupuestosAbierto, setPresupuestosAbierto] = useState(false);
+  const [boletinesAbierto, setBoletinesAbierto] = useState(false);
+  const [procesosAbierto, setProcesosAbierto] = useState(false);
+  const [marketingAbierto, setMarketingAbierto] = useState(false);
+  const [cuentasAbierto, setCuentasAbierto] = useState(false);
+  const [inventariosAbierto, setInventariosAbierto] = useState(false);
+
   const menuRef = useRef(null); // referencia al menú
+  const panelRef = useRef(null); 
+  const bonificacionesRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -39,6 +73,36 @@ export default function PortalInicio() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Cerrar el panel de Estado de Cuenta al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutsidePanel = (event) => {
+      if (panelRef.current && !panelRef.current.contains(event.target)) {
+        setEstadoCuentaAbierto(false);
+      }
+    };
+
+    if (estadoCuentaAbierto) {
+      document.addEventListener("mousedown", handleClickOutsidePanel);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsidePanel);
+    };
+  }, [estadoCuentaAbierto]);
+
+  //UseEffect para el menu de bonificaciones 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (bonificacionesRef.current && !bonificacionesRef.current.contains(event.target)) {
+        setBonificacionesAbierto(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
 
   return (
     <div className="relative min-h-screen bg-transparent flex flex-col items-center justify-center p-8 overflow-hidden z-10">
@@ -55,7 +119,7 @@ export default function PortalInicio() {
           whileTap={{ scale: 0.98 }}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-blue-900 h-full"
         >
-          <BarChart3 className="w-10 h-10 text-green-600 mb-4 group-hover:text-white" />
+          <BarChart3 className="w-10 h-10 text-blue-900 mb-4 group-hover:text-white" />
           <h2 className="text-xl font-semibold mb-2 group-hover:text-white transition-colors">
             Dashboard
           </h2>
@@ -75,7 +139,7 @@ export default function PortalInicio() {
             }}
             className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-yellow-500 cursor-pointer h-full w-full"
           >
-            <FileText className="w-10 h-10 text-blue-600 mb-4 group-hover:text-white transition-colors" />
+            <FileText className="w-10 h-10 text-yellow-500 mb-4 group-hover:text-white transition-colors" />
             <h2 className="text-xl font-semibold mb-2 group-hover:text-white">Ligues</h2>
             <p className="text-gray-600 text-sm group-hover:text-gray-200">
               Accede a los documentos de ligues por sucursal.
@@ -134,9 +198,9 @@ export default function PortalInicio() {
           href="#"
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-orange-500 cursor-pointer h-full"
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-orange-700 cursor-pointer h-full"
         >
-          <Video className="w-10 h-10 text-green-600 mb-4 group-hover:text-white transition-colors" />
+          <Video className="w-10 h-10 text-orange-700 mb-4 group-hover:text-white transition-colors" />
           <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
             Capacitación
           </h2>
@@ -162,31 +226,172 @@ export default function PortalInicio() {
         </motion.a>
 
         {/* Tarjeta 6 - Bonificaciones */}
-        <motion.a
-          href="#"
+        <div ref={bonificacionesRef} className="relative h-full flex">
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setBonificacionesAbierto(!bonificacionesAbierto);
+            }}
+            className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-teal-600 cursor-pointer h-full w-full"
+          >
+            <BadgePercent className="w-10 h-10 text-teal-600 mb-4 group-hover:text-white transition-colors" />
+            <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
+              Bonificaciones
+            </h2>
+            <p className="text-gray-600 text-sm group-hover:text-gray-200">
+              Seguimiento de bonificaciones por sucursal
+            </p>
+            <ChevronDown
+              className={`w-5 h-5 mt-3 text-gray-600 group-hover:text-white transition-transform ${
+                bonificacionesAbierto ? "rotate-180" : ""
+              }`}
+            />
+          </motion.div>
+
+          {/* Menú desplegable Bonificaciones */}
+          <AnimatePresence>
+            {bonificacionesAbierto && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="absolute top-full left-1 -translate-x-1/2 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50 text-left max-h-72 overflow-y-auto"
+              >
+                {sucursalesBonificaciones.map((sucursal, i) => (
+                  <a
+                    key={i}
+                    href={sucursal.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-gray-800 py-1.5 px-2 rounded-lg hover:bg-teal-100 transition-colors"
+                  >
+                    {sucursal.nombre}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Tarjeta 7 - Manuales de partes, catálogos y fichas técnicas */}
+        <motion.div
+          whileHover={{ scale: !manualesAbierto ? 1.05 : 1, y: !manualesAbierto ? -5 : 0 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setManualesAbierto(true)}              // 👈 AQUÍ ABRE EL PANEL
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-fuchsia-900 hover:text-white cursor-pointer h-full"
+        >
+          <Library className="w-10 h-10 text-fuchsia-900 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Manuales de partes, catálogos y fichas técnicas</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">
+            Documentación
+          </p>
+        </motion.div>
+
+        {/* Tarjeta 8 - GESTION DE ALMACENES */}
+        <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-teal-600 cursor-pointer h-full"
+          onClick={() => setAlmacenesAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-emerald-800 hover:text-white cursor-pointer h-full"
         >
-          <BadgePercent className="w-10 h-10 text-teal-600 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
-            Bonificaciones
-          </h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Seguimiento de bonificaciones por sucursal
-          </p>
-        </motion.a>
+          <Boxes className="w-10 h-10 text-emerald-800 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Gestión de almacenes</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Control y operaciones de almacén.</p>
+        </motion.div>
+
+        {/* Tarjeta 9 - PRESUPUESTOS */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setPresupuestosAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-yellow-900 hover:text-white cursor-pointer h-full"
+        >
+          <ClipboardList className="w-10 h-10 text-yellow-900 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Presupuestos</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Creación y seguimiento de presupuestos.</p>
+        </motion.div>
+
+        {/* Tarjeta 9 - BOLETINES */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setBoletinesAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-red-600 hover:text-white cursor-pointer h-full"
+        >
+          <Megaphone className="w-10 h-10 text-red-600 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Boletines</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Avisos, novedades y comunicados internos.</p>
+        </motion.div>
+
+        {/* Tarjeta 10 - PROCESOS Y POLITICAS */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setProcesosAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-teal-400 hover:text-white cursor-pointer h-full"
+        >
+          <BookOpenText className="w-10 h-10 text-teal-400 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Procesos y políticas</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Normativas internas y procedimientos.</p>
+        </motion.div>
+
+        {/* Tarjeta 11 - MARKETING */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setMarketingAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-violet-400 hover:text-white cursor-pointer h-full"
+        >
+          <Building2 className="w-10 h-10 text-violet-400 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Marketing</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Material gráfico y planes comerciales.</p>
+        </motion.div>
+
+        {/* Tarjeta 12 - Cuentas bancarias */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setCuentasAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-cyan-600 hover:text-white cursor-pointer h-full"
+        >
+          <ListChecks className="w-10 h-10 text-cyan-600 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Cuentas bancarias</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Información bancaria por agencia.</p>
+        </motion.div>
+
+        {/* Tarjeta 13 - INVENTARIOS CICLICOS Y SEMESTRALES */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setInventariosAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-pink-400 hover:text-white cursor-pointer h-full"
+        >
+          <PackageSearch className="w-10 h-10 text-pink-400 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Inventarios</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Control de inventarios cíclicos y generales.</p>
+        </motion.div>
 
       </div>
 
       <AnimatePresence>
         {estadoCuentaAbierto && (
-          <EstadoCuentaPanel onClose={() => setEstadoCuentaAbierto(false)} />
+          <EstadoCuentaPanel
+            onClose={() => setEstadoCuentaAbierto(false)}
+            panelRef={panelRef}
+          />
+        )}
+        
+        {manualesAbierto && (
+          <ManualesPanel
+            isOpen={manualesAbierto}
+            onClose={() => setManualesAbierto(false)}
+          />
         )}
       </AnimatePresence>
-
-              
-
+                
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import logo from "../assets/dimasur.webp";
-import navbarBg from "../assets/navbar.jpg"; // Importa la imagen
+import navbarBg from "../assets/navbar.jpg";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -11,6 +11,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const cerrarSesion = () => {
+    localStorage.removeItem("auth");
+    window.location.reload(); // esto regresa al login
+  };
 
   return (
     <motion.nav
@@ -31,9 +36,8 @@ export default function Navbar() {
         backgroundColor: scrolled ? "rgba(0,0,0,0.6)" : "transparent",
       }}
     >
-
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo a la izquierda */}
+        {/* Logo */}
         <div className="flex items-center space-x-3">
           <img
             src={logo}
@@ -42,20 +46,19 @@ export default function Navbar() {
           />
         </div>
 
-        {/* Título centrado */}
+        {/* Título */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
-          <h1
-            className="text-2xl md:text-3xl font-semibold tracking-wide text-white drop-shadow-lg font-[Poppins]"
-          >
+          <h1 className="text-2xl md:text-3xl font-semibold tracking-wide text-white drop-shadow-lg font-[Poppins]">
             Portal de Refacciones
           </h1>
         </div>
 
         {/* Menú derecho */}
-        <div className="hidden md:flex space-x-6 text-sm font-medium text-white drop-shadow-md">
+        <div className="hidden md:flex items-center space-x-6 text-sm font-medium text-white drop-shadow-md">
           <a href="/inicio" className="hover:text-blue-300 transition-colors">
             Inicio
           </a>
+
           <a
             href="https://dshb-dm-refacciones.streamlit.app/#resumen-general-de-compras-2025"
             target="_blank"
@@ -64,14 +67,14 @@ export default function Navbar() {
           >
             Dashboard
           </a>
-          <a
-            href="https://docs.google.com/spreadsheets/d/13UHVPsiI7MejlVLFA1jePD_bgZ6T9FhwmB7bRVZnTrI/edit?gid=1621444293#gid=1621444293"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-blue-300 transition-colors"
+
+          {/* BOTÓN CERRAR SESIÓN */}
+          <button
+            onClick={cerrarSesion}
+            className="px-4 py-1 rounded-lg bg-red-600 hover:bg-red-700 transition-all"
           >
-            Ligues
-          </a>
+            Cerrar sesión
+          </button>
         </div>
       </div>
     </motion.nav>

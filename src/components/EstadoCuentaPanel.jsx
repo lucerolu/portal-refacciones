@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, PiggyBank } from "lucide-react";
 
-export default function EstadoCuentaPanel({ onClose }) {
+export default function EstadoCuentaPanel({ onClose, panelRef }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -10,6 +10,7 @@ export default function EstadoCuentaPanel({ onClose }) {
       className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50"
     >
       <motion.div
+        ref={panelRef}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
@@ -33,7 +34,7 @@ export default function EstadoCuentaPanel({ onClose }) {
 
             {/* Opción 1 */}
             <a
-              href="https://drive.google.com/drive/folders/1RrO8Rnyf55vHRxxhQfbW5Vknus9abtHq?usp=drive_link"
+              href="https://drive.google.com/drive/folders/18VIJ6jzTTXQ0FKUsqa3Ccdv30L15k1Qu?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="p-6 rounded-xl bg-pink-100 hover:bg-pink-200 transition shadow text-center cursor-pointer"

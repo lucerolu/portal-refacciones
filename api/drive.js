@@ -1,0 +1,55 @@
+import { google } from "googleapis";
+
+export default async function handler(req, res) {
+  try {
+    // 1. Obtenemos la clave desde variables de entorno
+    const key = JSON.parse(process.env.GDRIVE_SERVICE_KEY);
+
+    const auth = new google.auth.GoogleAuth({
+      credentials: key,
+      scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+    });
+
+    const drive = google.drive({ version: "v3", auth });
+
+    const ROOT_FOLDER = process.env.GDRIVE_ROOT_FOLDER;
+
+    const readFolder = async (folderId) => {
+      const response = await drive.files.list({
+        q: `'${folderId}' in parents and trashed = false`,
+        fields: "files(id, name, mimeType)",
+      });
+
+      const list = response.data.files;
+
+      const items = await Promise.all(
+        list.map(async (file) => {
+          if (file.mimeType === "application/vnd.google-apps.folder") {
+            return {
+              id: file.id,
+              name: file.name,
+              type: "folder",
+              children: await readFolder(file.id),
+            };
+          } else {
+            return {
+              id: file.id,
+              name: file.name,
+              type: "file",
+              url: `https://drive.google.com/file/d/${file.id}/view`,
+            };
+          }
+        })
+      );
+
+      return items;
+    };
+
+    const tree = await readFolder(ROOT_FOLDER);
+    res.status(200).json(tree);
+
+  } catch (error) {
+    console.error("Drive error:", error);
+    res.status(500).json({ error: error.message });
+  }
+}
