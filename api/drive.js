@@ -1,9 +1,11 @@
+//portal-refacciones\api\drive.js
+
 import { google } from "googleapis";
 
 export default async function handler(req, res) {
   try {
     // 1. Obtenemos la clave desde variables de entorno
-    const key = JSON.parse(process.env.GDRIVE_SERVICE_KEY);
+    const key = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
 
     const auth = new google.auth.GoogleAuth({
       credentials: key,
