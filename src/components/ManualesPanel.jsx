@@ -19,14 +19,26 @@ export default function ManualesPanel({ isOpen, onClose }) {
         const json = await res.json();
 
         // adaptamos un poquitito para usar tu estructura actual:
+        // convierte structure Drive → structure Frontend
+        const adaptTree = (nodes) => {
+          return nodes.map((n) => ({
+            id: n.id,
+            label: n.name,           // ← CLAVE 
+            type: n.type === "file" ? "url" : "folder",
+            url: n.url || null,
+            children: n.children ? adaptTree(n.children) : [],
+          }));
+        };
+
         setDriveData([
           {
             id: "drive-root",
             label: "Google Drive",
             type: "folder",
-            children: json,
-          },
+            children: adaptTree(json),
+          }
         ]);
+
       } catch (err) {
         console.error("Error loading drive:", err);
       }
