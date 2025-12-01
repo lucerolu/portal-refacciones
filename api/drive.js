@@ -4,7 +4,6 @@ import { google } from "googleapis";
 
 export default async function handler(req, res) {
   try {
-    // 1. Obtenemos la clave desde variables de entorno
     const key = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
 
     const auth = new google.auth.GoogleAuth({
@@ -13,7 +12,6 @@ export default async function handler(req, res) {
     });
 
     const drive = google.drive({ version: "v3", auth });
-
     const ROOT_FOLDER = process.env.GDRIVE_ROOT_FOLDER;
 
     const readFolder = async (folderId) => {
@@ -34,11 +32,14 @@ export default async function handler(req, res) {
               children: await readFolder(file.id),
             };
           } else {
+            // 🔥 DIRECT LINK SEGURO PARA IFRAME
+            const directLink = `https://drive.google.com/uc?export=download&id=${file.id}`;
+
             return {
               id: file.id,
               name: file.name,
               type: "file",
-              url: `https://drive.google.com/file/d/${file.id}/view`,
+              url: directLink, // ← REEMPLAZADO
             };
           }
         })
