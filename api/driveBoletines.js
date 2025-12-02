@@ -1,5 +1,4 @@
-//portal-refacciones\api\drive.js (PARA MANUALES Y FICHAS TECNICAS)
-
+//api\driveBoletines.js
 import { google } from "googleapis";
 
 export default async function handler(req, res) {
@@ -12,7 +11,7 @@ export default async function handler(req, res) {
     });
 
     const drive = google.drive({ version: "v3", auth });
-    const ROOT_FOLDER = process.env.GDRIVE_ROOT_FOLDER;
+    const ROOT_FOLDER = process.env.BOLETINES_FOLDER_ID;
 
     const readFolder = async (folderId) => {
       const response = await drive.files.list({
@@ -32,16 +31,13 @@ export default async function handler(req, res) {
               children: await readFolder(file.id),
             };
           } else {
-            // DIRECT LINK PARA PREVIEW
             const previewLink = `https://drive.google.com/file/d/${file.id}/preview`;
-
             return {
-            id: file.id,
-            name: file.name,
-            type: "file",
-            url: previewLink,
+              id: file.id,
+              name: file.name,
+              type: "file",
+              url: previewLink,
             };
-
           }
         })
       );
@@ -53,7 +49,7 @@ export default async function handler(req, res) {
     res.status(200).json(tree);
 
   } catch (error) {
-    console.error("Drive error:", error);
-    res.status(500).json({ error: error.message });
+    console.error("driveVideos error:", error);
+    res.status(500).json({ error: "Error loading videos." });
   }
 }

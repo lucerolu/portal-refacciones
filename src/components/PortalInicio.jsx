@@ -25,6 +25,11 @@ import EstadoCuentaPanel from "./EstadoCuentaPanel";
 import ManualesPanel from "./ManualesPanel";
 import CapacitacionPanel from "./CapacitacionPanel";
 import VideosPanel from "./VideosPanel";
+import GestionAlmacenesPanel from "./GestionAlmacenesPanel";
+import PresupuestosPanel from "./PresupuestosPanel";
+import BoletinesPanel from "./BoletinesPanel";
+import MarketingPanel from "./MarketingPanel";
+import InventariosPanel from "./InventariosPanel";
 
 
 // Lista de sucursales con URLs
@@ -73,8 +78,8 @@ export default function PortalInicio() {
   const [bonificacionesAbierto, setBonificacionesAbierto] = useState(false);
   const [manualesAbierto, setManualesAbierto] = useState(false);
   const [showCapacitacion, setShowCapacitacion] = useState(false);
-  const [almacenesAbierto, setAlmacenesAbierto] = useState(false);
-  const [presupuestosAbierto, setPresupuestosAbierto] = useState(false);
+  const [AlmacenesAbierto, setAlmacenesAbierto] = useState(false);
+  const [PresupuestosAbierto, setPresupuestosAbierto] = useState(false);
   const [boletinesAbierto, setBoletinesAbierto] = useState(false);
   const [procesosAbierto, setProcesosAbierto] = useState(false);
   const [marketingAbierto, setMarketingAbierto] = useState(false);
@@ -443,6 +448,37 @@ export default function PortalInicio() {
             onClose={() => setVideosAbierto(false)}
           />
         )}
+        {AlmacenesAbierto && (
+          <GestionAlmacenesPanel
+            isOpen={AlmacenesAbierto}
+            onClose={() => setAlmacenesAbierto(false)}
+          />
+        )}
+        {PresupuestosAbierto && (
+          <PresupuestosPanel
+            isOpen={PresupuestosAbierto}
+            onClose={() => setPresupuestosAbierto(false)}
+          />
+        )}
+        {boletinesAbierto && (
+          <BoletinesPanel
+            isOpen={boletinesAbierto}
+            onClose={() => setBoletinesAbierto(false)}
+          />
+        )}
+        {marketingAbierto && (
+          <MarketingPanel
+            isOpen={marketingAbierto}
+            onClose={() => setMarketingAbierto(false)}
+          />
+        )}
+        {inventariosAbierto && (
+          <InventariosPanel
+            isOpen={inventariosAbierto}
+            onClose={() => setInventariosAbierto(false)}
+          />
+        )}
+
 
       </AnimatePresence>
                 
