@@ -30,6 +30,7 @@ import PresupuestosPanel from "./PresupuestosPanel";
 import BoletinesPanel from "./BoletinesPanel";
 import MarketingPanel from "./MarketingPanel";
 import InventariosPanel from "./InventariosPanel";
+import ProcesosPanel from "./ProcesosPanel";
 
 
 // Lista de sucursales con URLs
@@ -476,6 +477,12 @@ export default function PortalInicio() {
           <InventariosPanel
             isOpen={inventariosAbierto}
             onClose={() => setInventariosAbierto(false)}
+          />
+        )}
+        {procesosAbierto && (
+          <ProcesosPanel
+            isOpen={procesosAbierto}
+            onClose={() => setProcesosAbierto(false)}
           />
         )}
 
