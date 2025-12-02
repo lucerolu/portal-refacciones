@@ -11,7 +11,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
   const [selectedNode, setSelectedNode] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // 🔥 Cargar datos del backend
+  // Cargar datos del backend
   useEffect(() => {
     if (!isOpen) return; // para que no cargue cuando no está abierto
 

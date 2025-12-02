@@ -59,7 +59,7 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
                   key={n.id}
                   onClick={() => setActiveSubmenu(n.id)}
                   className={`w-full text-left px-3 py-2 rounded-md ${
-                    activeSubmenu === n.id ? "bg-orange-50" : "hover:bg-gray-100"
+                    activeSubmenu === n.id ? "bg-pink-50" : "hover:bg-gray-100"
                   }`}
                 >
                   {n.label}
