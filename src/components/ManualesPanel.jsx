@@ -54,7 +54,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
   return (
     <>
       <MultiLevelDrawer isOpen={isOpen} onClose={onClose}>
-        <div className="bg-white rounded-2xl shadow p-4 flex h-[70vh] w-full">
+        <div className="bg-white rounded-2xl shadow p-4 flex h-[70vh] w-full overflow-x-auto">
           {/* izquierda */}
           <div className="w-64 border-r p-4 flex flex-col gap-4">
             <h3 className="font-semibold">Categorías</h3>

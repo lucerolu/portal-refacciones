@@ -47,7 +47,7 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
   return (
     <>
       <MultiLevelDrawer isOpen={isOpen} onClose={onClose}>
-        <div className="bg-white rounded-2xl shadow p-4 flex h-[70vh] w-full">
+        <div className="bg-white rounded-2xl shadow p-4 flex h-[70vh] w-full overflow-x-auto">
 
           {/* Panel izquierdo */}
           <div className="w-64 border-r p-4 flex flex-col gap-4">
