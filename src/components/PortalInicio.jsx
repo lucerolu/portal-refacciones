@@ -1,10 +1,28 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BarChart3, FileText, ChevronDown, PiggyBank, Video, ShoppingCart, BadgePercent, Library, Boxes, ClipboardList, Megaphone, BookOpenText, Building2, ListChecks, PackageSearch } from "lucide-react";
+import { 
+  BarChart3, 
+  FileText, 
+  ChevronDown, 
+  PiggyBank, 
+  Video, 
+  ShoppingCart, 
+  BadgePercent, 
+  Library, 
+  Boxes, 
+  ClipboardList, 
+  Megaphone, 
+  BookOpenText, 
+  Building2, 
+  ListChecks, 
+  PackageSearch 
+} from "lucide-react";
+
 import Navbar from "./Navbar";
 import ConstelacionesFondo from "./ConstelacionesFondo";
 import EstadoCuentaPanel from "./EstadoCuentaPanel";
 import ManualesPanel from "./ManualesPanel";
+import CapacitacionPanel from "./CapacitacionPanel";
 
 
 // Lista de sucursales con URLs
@@ -52,6 +70,7 @@ export default function PortalInicio() {
   const [estadoCuentaAbierto, setEstadoCuentaAbierto] = useState(false);
   const [bonificacionesAbierto, setBonificacionesAbierto] = useState(false);
   const [manualesAbierto, setManualesAbierto] = useState(false);
+  const [showCapacitacion, setShowCapacitacion] = useState(false);
   const [almacenesAbierto, setAlmacenesAbierto] = useState(false);
   const [presupuestosAbierto, setPresupuestosAbierto] = useState(false);
   const [boletinesAbierto, setBoletinesAbierto] = useState(false);
@@ -60,10 +79,12 @@ export default function PortalInicio() {
   const [cuentasAbierto, setCuentasAbierto] = useState(false);
   const [inventariosAbierto, setInventariosAbierto] = useState(false);
 
+  //REFERENCIAS
   const menuRef = useRef(null); // referencia al menú
   const panelRef = useRef(null); 
   const bonificacionesRef = useRef(null);
 
+  //CERRAR EL MENU DE LIGUES AL HACER CLIC AFUERA
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -91,7 +112,7 @@ export default function PortalInicio() {
     };
   }, [estadoCuentaAbierto]);
 
-  //UseEffect para el menu de bonificaciones 
+  //UseEffect para el menu de bonificaciones (CERRAR EL HACER CLIC FUERA)
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (bonificacionesRef.current && !bonificacionesRef.current.contains(event.target)) {
@@ -103,6 +124,8 @@ export default function PortalInicio() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+
+  //RENDER PRINCIPAL
 
   return (
     <div className="relative min-h-screen bg-transparent flex flex-col items-center justify-center p-8 overflow-hidden z-10">
@@ -195,7 +218,7 @@ export default function PortalInicio() {
 
         {/* Tarjeta 4 - Capacitación */}
         <motion.a
-          href="#"
+          onClick={() => setShowCapacitacion(true)}
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-orange-700 cursor-pointer h-full"
@@ -205,7 +228,7 @@ export default function PortalInicio() {
             Capacitación
           </h2>
           <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Accede a videos y material de capacitación.
+            Accede material de capacitación.
           </p>
         </motion.a>
 
@@ -374,6 +397,18 @@ export default function PortalInicio() {
           <p className="text-gray-600 text-sm group-hover:text-gray-200">Control de inventarios cíclicos y generales.</p>
         </motion.div>
 
+        {/* Tarjeta 14 - videos promocionales */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setInventariosAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-blue-800 hover:text-white cursor-pointer h-full"
+        >
+          <PackageSearch className="w-10 h-10 text-blue-800 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Videos promocionales</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Internos y por proveedor</p>
+        </motion.div>
+
       </div>
 
       <AnimatePresence>
@@ -390,6 +425,13 @@ export default function PortalInicio() {
             onClose={() => setManualesAbierto(false)}
           />
         )}
+        {showCapacitacion && (
+          <CapacitacionPanel
+            isOpen={showCapacitacion}
+            onClose={() => setShowCapacitacion(false)}
+          />
+        )}
+
       </AnimatePresence>
                 
     </div>
