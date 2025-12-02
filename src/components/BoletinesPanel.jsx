@@ -29,7 +29,7 @@ export default function BoletinesPanel({ isOpen, onClose }) {
 
         setDriveData(adaptTree(json));
       } catch (err) {
-        console.error("Error loading videos:", err);
+        console.error("Error loading data:", err);
       }
     };
 
