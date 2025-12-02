@@ -1,4 +1,4 @@
-// src/components/ManualesPanel.jsx
+// src/components/MultiLevelMenu.jsx
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "./SearchBar";

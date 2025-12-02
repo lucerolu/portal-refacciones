@@ -31,11 +31,12 @@ export default async function handler(req, res) {
               children: await readFolder(file.id),
             };
           } else {
+            const previewLink = `https://drive.google.com/file/d/${file.id}/preview`;
             return {
               id: file.id,
               name: file.name,
               type: "file",
-              url: `https://drive.google.com/file/d/${file.id}/view`,
+              url: previewLink,
             };
           }
         })
