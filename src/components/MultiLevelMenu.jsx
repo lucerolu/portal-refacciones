@@ -46,15 +46,33 @@ function MenuItem({ item, onOpenPanel, onSelectItem }) {
 
   return (
     <div
-      onClick={handleClick}
       className="flex items-center justify-between gap-3 p-3 rounded-md hover:bg-gray-100 cursor-pointer"
+      onClick={(e) => {
+        // Solo manejamos click si NO es botón externo
+        if (item.type === "url" || item.type === "pdf") {
+          onSelectItem && onSelectItem(item);
+        } 
+        else if (item.type === "panel") {
+          onOpenPanel && onOpenPanel(item);
+        }
+      }}
     >
       <div className="flex items-center gap-3">
         <span className="font-medium">{item.label}</span>
       </div>
+
       <div className="flex items-center gap-2 text-gray-500">
-        {(item.type === "url" || item.type === "pdf") && 
-          <ExternalLink className="w-4 h-4" />}
+        {(item.type === "url" || item.type === "pdf") && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); 
+              window.open(item.url, "_blank");
+            }}
+          >
+            <ExternalLink className="w-4 h-4 hover:text-orange-600 transition" />
+          </button>
+        )}
+
         {item.type === "panel" && <ChevronRight className="w-4 h-4" />}
       </div>
     </div>
