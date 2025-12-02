@@ -15,7 +15,8 @@ import {
   BookOpenText, 
   Building2, 
   ListChecks, 
-  PackageSearch 
+  PackageSearch,
+  Videotape 
 } from "lucide-react";
 
 import Navbar from "./Navbar";
@@ -23,6 +24,7 @@ import ConstelacionesFondo from "./ConstelacionesFondo";
 import EstadoCuentaPanel from "./EstadoCuentaPanel";
 import ManualesPanel from "./ManualesPanel";
 import CapacitacionPanel from "./CapacitacionPanel";
+import VideosPanel from "./VideosPanel";
 
 
 // Lista de sucursales con URLs
@@ -78,6 +80,8 @@ export default function PortalInicio() {
   const [marketingAbierto, setMarketingAbierto] = useState(false);
   const [cuentasAbierto, setCuentasAbierto] = useState(false);
   const [inventariosAbierto, setInventariosAbierto] = useState(false);
+  const [videosAbierto, setVideosAbierto] = useState(false);
+
 
   //REFERENCIAS
   const menuRef = useRef(null); // referencia al menú
@@ -401,12 +405,14 @@ export default function PortalInicio() {
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
-          onClick={() => setInventariosAbierto(true)}
+          onClick={() => setVideosAbierto(true)}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-blue-800 hover:text-white cursor-pointer h-full"
         >
-          <PackageSearch className="w-10 h-10 text-blue-800 mb-4 group-hover:text-white transition-colors" />
+          <Videotape className="w-10 h-10 text-blue-800 mb-4 group-hover:text-white transition-colors" />
           <h2 className="text-xl font-semibold mb-2">Videos promocionales</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Internos y por proveedor</p>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">
+            Internos y por proveedor
+          </p>
         </motion.div>
 
       </div>
@@ -429,6 +435,12 @@ export default function PortalInicio() {
           <CapacitacionPanel
             isOpen={showCapacitacion}
             onClose={() => setShowCapacitacion(false)}
+          />
+        )}
+        {videosAbierto && (
+          <VideosPanel
+            isOpen={videosAbierto}
+            onClose={() => setVideosAbierto(false)}
           />
         )}
 
