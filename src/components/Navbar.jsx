@@ -47,8 +47,16 @@ export default function Navbar() {
         </div>
 
         {/* Título */}
-        <div className="absolute left-1/2 transform -translate-x-1/2">
-          <h1 className="text-2xl md:text-3xl font-semibold tracking-wide text-white drop-shadow-lg font-[Poppins]">
+        <div
+          className="
+            md:absolute 
+            md:left-1/2 
+            md:transform 
+            md:-translate-x-1/2
+            text-center
+          "
+        >
+          <h1 className="text-lg sm:text-xl md:text-3xl font-semibold tracking-wide text-white drop-shadow-lg font-[Poppins]">
             Portal de Refacciones
           </h1>
         </div>
