@@ -31,6 +31,7 @@ import BoletinesPanel from "./BoletinesPanel";
 import MarketingPanel from "./MarketingPanel";
 import InventariosPanel from "./InventariosPanel";
 import ProcesosPanel from "./ProcesosPanel";
+import CuentasPanel from "./CuentasPanel";
 
 
 // Lista de sucursales con URLs
@@ -92,7 +93,9 @@ export default function PortalInicio() {
   //REFERENCIAS
   const menuRef = useRef(null); // referencia al menú
   const panelRef = useRef(null); 
+  const estadoCuentaRef = useRef(null);
   const bonificacionesRef = useRef(null);
+  const cuentasRef = useRef(null);
 
   //CERRAR EL MENU DE LIGUES AL HACER CLIC AFUERA
   useEffect(() => {
@@ -108,7 +111,7 @@ export default function PortalInicio() {
   // Cerrar el panel de Estado de Cuenta al hacer clic fuera
   useEffect(() => {
     const handleClickOutsidePanel = (event) => {
-      if (panelRef.current && !panelRef.current.contains(event.target)) {
+      if (estadoCuentaRef.current && !estadoCuentaRef.current.contains(event.target)) {
         setEstadoCuentaAbierto(false);
       }
     };
@@ -134,6 +137,20 @@ export default function PortalInicio() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  //UseEffect para el panel de cuentas
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cuentasRef.current && !cuentasRef.current.contains(event.target)) {
+        setCuentasAbierto(false);
+      }
+    };
+
+    if (cuentasAbierto) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [cuentasAbierto]);
 
   //RENDER PRINCIPAL
 
@@ -244,7 +261,8 @@ export default function PortalInicio() {
 
         {/* Tarjeta 5 - Compras a proveedores externos */}
         <motion.a
-          href="#"
+          href="https://1drv.ms/x/c/505c76d8838d38ab/ES1WD8mXwoJGhKJHezKKpTEBE8lV2knEpJmcjYZrZl6SwA?e=VDngZN&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMTAwLTAwMDAwMDAwMDAwMH0"
+          target="_blank"
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-purple-600 cursor-pointer h-full"
@@ -385,7 +403,7 @@ export default function PortalInicio() {
 
         {/* Tarjeta 12 - Cuentas bancarias */}
         <motion.div
-          whileHover={{ scale: 1.05, y: -5 }}
+          whileHover={{ scale: !cuentasAbierto ? 1.05: 1, y: !cuentasAbierto ? -5:0 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setCuentasAbierto(true)}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-cyan-600 hover:text-white cursor-pointer h-full"
@@ -427,7 +445,7 @@ export default function PortalInicio() {
         {estadoCuentaAbierto && (
           <EstadoCuentaPanel
             onClose={() => setEstadoCuentaAbierto(false)}
-            panelRef={panelRef}
+            panelRef={estadoCuentaRef}
           />
         )}
         
@@ -485,7 +503,11 @@ export default function PortalInicio() {
             onClose={() => setProcesosAbierto(false)}
           />
         )}
-
+        <CuentasPanel
+          isOpen={cuentasAbierto}
+          onClose={() => setCuentasAbierto(false)}
+          panelRef={cuentasRef}
+        />
 
       </AnimatePresence>
                 
