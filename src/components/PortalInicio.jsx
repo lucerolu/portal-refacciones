@@ -73,6 +73,10 @@ const sucursalesBonificaciones = [
   { nombre: "Zapata", url: "https://docs.google.com/spreadsheets/d/14rqkAibT-QWjpFMoOzKJAf1IQrgNXm4VnO2RhAHJHNE/edit?usp=sharing" },
 ];
 
+const comprasFormatos = [
+  { nombre: "Seguimiento pagos", url: "https://1drv.ms/x/c/505c76d8838d38ab/ES1WD8mXwoJGhKJHezKKpTEBE8lV2knEpJmcjYZrZl6SwA?e=VDngZN&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMTAwLTAwMDAwMDAwMDAwMH0" },
+  { nombre: "Seguimiento pedidos", url: "https://docs.google.com/spreadsheets/d/1baGGvXTqdTTCZwx-WctaqZvo6AKGwfAJABR938E3lMc/edit?usp=sharing" },
+];
 
 export default function PortalInicio() {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -88,6 +92,7 @@ export default function PortalInicio() {
   const [cuentasAbierto, setCuentasAbierto] = useState(false);
   const [inventariosAbierto, setInventariosAbierto] = useState(false);
   const [videosAbierto, setVideosAbierto] = useState(false);
+  const [comprasAbierto, setComprasAbierto] = useState(false);
 
 
   //REFERENCIAS
@@ -96,6 +101,7 @@ export default function PortalInicio() {
   const estadoCuentaRef = useRef(null);
   const bonificacionesRef = useRef(null);
   const cuentasRef = useRef(null);
+  const comprasRef = useRef(null);
 
   //CERRAR EL MENU DE LIGUES AL HACER CLIC AFUERA
   useEffect(() => {
@@ -151,6 +157,18 @@ export default function PortalInicio() {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [cuentasAbierto]);
+
+  //UseEffect para el menu de compras)
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (comprasRef.current && !comprasRef.current.contains(event.target)) {
+        setComprasAbierto(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   //RENDER PRINCIPAL
 
@@ -239,7 +257,7 @@ export default function PortalInicio() {
             Estado de cuenta
           </h2>
           <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Consulta los movimientos y pagos registrados por sucursal.
+            Consulta los pagos registrados por sucursal.
           </p>
         </motion.div>
 
@@ -260,21 +278,55 @@ export default function PortalInicio() {
         </motion.a>
 
         {/* Tarjeta 5 - Compras a proveedores externos */}
-        <motion.a
-          href="https://1drv.ms/x/c/505c76d8838d38ab/ES1WD8mXwoJGhKJHezKKpTEBE8lV2knEpJmcjYZrZl6SwA?e=VDngZN&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMTAwLTAwMDAwMDAwMDAwMH0"
-          target="_blank"
-          whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-purple-600 cursor-pointer h-full"
-        >
-          <ShoppingCart className="w-10 h-10 text-purple-600 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
-            Compras a proveedores externos
-          </h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Seguimiento
-          </p>
-        </motion.a>
+        <div ref={comprasRef} className="relative h-full flex">
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setComprasAbierto(!comprasAbierto);
+            }}
+            className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-purple-600 cursor-pointer h-full w-full"
+          >
+            <BadgePercent className="w-10 h-10 text-purple-600 mb-4 group-hover:text-white transition-colors" />
+            <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
+              Compras a proveedores externos
+            </h2>
+            <p className="text-gray-600 text-sm group-hover:text-gray-200">
+              Seguimiento de compras a proveedores
+            </p>
+            <ChevronDown
+              className={`w-5 h-5 mt-3 text-gray-600 group-hover:text-white transition-transform ${
+                bonificacionesAbierto ? "rotate-180" : ""
+              }`}
+            />
+          </motion.div>
+
+          {/* Menú desplegable Bonificaciones */}
+          <AnimatePresence>
+            {comprasAbierto && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="absolute top-full left-1 -translate-x-1/2 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50 text-left max-h-72 overflow-y-auto"
+              >
+                {comprasFormatos.map((sucursal, i) => (
+                  <a
+                    key={i}
+                    href={sucursal.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-gray-800 py-1.5 px-2 rounded-lg hover:bg-teal-100 transition-colors"
+                  >
+                    {sucursal.nombre}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Tarjeta 6 - Bonificaciones */}
         <div ref={bonificacionesRef} className="relative h-full flex">
@@ -362,7 +414,7 @@ export default function PortalInicio() {
         >
           <ClipboardList className="w-10 h-10 text-yellow-900 mb-4 group-hover:text-white transition-colors" />
           <h2 className="text-xl font-semibold mb-2">Presupuestos</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Creación y seguimiento de presupuestos.</p>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Presupuestos del departamento general y por sucursal.</p>
         </motion.div>
 
         {/* Tarjeta 9 - BOLETINES */}
@@ -374,7 +426,7 @@ export default function PortalInicio() {
         >
           <Megaphone className="w-10 h-10 text-red-600 mb-4 group-hover:text-white transition-colors" />
           <h2 className="text-xl font-semibold mb-2">Boletines</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Avisos, novedades y comunicados internos.</p>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Avisos, novedades, comunicados internos y de John Deere.</p>
         </motion.div>
 
         {/* Tarjeta 10 - PROCESOS Y POLITICAS */}
@@ -398,7 +450,7 @@ export default function PortalInicio() {
         >
           <Building2 className="w-10 h-10 text-violet-400 mb-4 group-hover:text-white transition-colors" />
           <h2 className="text-xl font-semibold mb-2">Marketing</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Material gráfico y planes comerciales.</p>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Material gráfico y promocionales.</p>
         </motion.div>
 
         {/* Tarjeta 12 - Cuentas bancarias */}
@@ -410,7 +462,7 @@ export default function PortalInicio() {
         >
           <ListChecks className="w-10 h-10 text-cyan-600 mb-4 group-hover:text-white transition-colors" />
           <h2 className="text-xl font-semibold mb-2">Cuentas bancarias</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Información bancaria por agencia.</p>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">Carátula bancaria por agencia para pagos de refacciones para clientes.</p>
         </motion.div>
 
         {/* Tarjeta 13 - INVENTARIOS CICLICOS Y SEMESTRALES */}
