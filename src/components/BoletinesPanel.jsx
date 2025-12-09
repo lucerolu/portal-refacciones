@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import MultiLevelDrawer from "./MultiLevelDrawer";
 import MultiLevelMenu from "./MultiLevelMenu";
 import GenericPanel from "./GenericPanel";
-import IframeWithLoader from "./common/InframeWithLoader";
+import IframeWithLoader from "./common/IframeWithLoader";
 
 export default function BoletinesPanel({ isOpen, onClose }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
