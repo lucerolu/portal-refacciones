@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   BarChart3, 
@@ -18,9 +19,9 @@ import {
   PackageSearch,
   Videotape 
 } from "lucide-react";
-
 import Navbar from "./Navbar";
 import ConstelacionesFondo from "./ConstelacionesFondo";
+{/*
 import EstadoCuentaPanel from "./EstadoCuentaPanel";
 import ManualesPanel from "./ManualesPanel";
 import CapacitacionPanel from "./CapacitacionPanel";
@@ -31,7 +32,19 @@ import BoletinesPanel from "./BoletinesPanel";
 import MarketingPanel from "./MarketingPanel";
 import InventariosPanel from "./InventariosPanel";
 import ProcesosPanel from "./ProcesosPanel";
-import CuentasPanel from "./CuentasPanel";
+import CuentasPanel from "./CuentasPanel"; 
+*/}
+const EstadoCuentaPanel = lazy(() => import("./EstadoCuentaPanel"));
+const ManualesPanel = lazy(() => import("./ManualesPanel"));
+const CapacitacionPanel = lazy(() => import("./CapacitacionesPanel"));
+const VideosPanel = lazy(() => import("./VideosPanel"));
+const GestionAlmacenesPanel = lazy(() => import("./GestionAlmacenesPanel"));
+const PresupuestosPanel = lazy(() => import("./PresupuestosPanel"));
+const BoletinesPanel = lazy(() => import("./BoletinesPanel"));
+const MarketingPanel = lazy(() => import("./MarketingPanel"));
+const InventariosPanel = lazy(() => import("./InventariosPanel"));
+const ProcesosPanel = lazy(() => import("./ProcesosPanel"));
+const CuentasPanel = lazy(() => import("./CuentasPanel"));
 
 
 // Lista de sucursales con URLs
@@ -494,73 +507,74 @@ export default function PortalInicio() {
       </div>
 
       <AnimatePresence>
-        {estadoCuentaAbierto && (
-          <EstadoCuentaPanel
-            onClose={() => setEstadoCuentaAbierto(false)}
-            panelRef={estadoCuentaRef}
-          />
-        )}
-        
-        {manualesAbierto && (
-          <ManualesPanel
-            isOpen={manualesAbierto}
-            onClose={() => setManualesAbierto(false)}
-          />
-        )}
-        {showCapacitacion && (
-          <CapacitacionPanel
-            isOpen={showCapacitacion}
-            onClose={() => setShowCapacitacion(false)}
-          />
-        )}
-        {videosAbierto && (
-          <VideosPanel
-            isOpen={videosAbierto}
-            onClose={() => setVideosAbierto(false)}
-          />
-        )}
-        {AlmacenesAbierto && (
-          <GestionAlmacenesPanel
-            isOpen={AlmacenesAbierto}
-            onClose={() => setAlmacenesAbierto(false)}
-          />
-        )}
-        {PresupuestosAbierto && (
-          <PresupuestosPanel
-            isOpen={PresupuestosAbierto}
-            onClose={() => setPresupuestosAbierto(false)}
-          />
-        )}
-        {boletinesAbierto && (
-          <BoletinesPanel
-            isOpen={boletinesAbierto}
-            onClose={() => setBoletinesAbierto(false)}
-          />
-        )}
-        {marketingAbierto && (
-          <MarketingPanel
-            isOpen={marketingAbierto}
-            onClose={() => setMarketingAbierto(false)}
-          />
-        )}
-        {inventariosAbierto && (
-          <InventariosPanel
-            isOpen={inventariosAbierto}
-            onClose={() => setInventariosAbierto(false)}
-          />
-        )}
-        {procesosAbierto && (
-          <ProcesosPanel
-            isOpen={procesosAbierto}
-            onClose={() => setProcesosAbierto(false)}
-          />
-        )}
-        <CuentasPanel
-          isOpen={cuentasAbierto}
-          onClose={() => setCuentasAbierto(false)}
-          panelRef={cuentasRef}
-        />
-
+        <Suspense fallback={<div className="text-white">Cargando…</div>}>
+          {estadoCuentaAbierto && (
+            <EstadoCuentaPanel
+              onClose={() => setEstadoCuentaAbierto(false)}
+              panelRef={estadoCuentaRef}
+            />
+          )}
+          
+          {manualesAbierto && (
+            <ManualesPanel
+              isOpen={manualesAbierto}
+              onClose={() => setManualesAbierto(false)}
+            />
+          )}
+          {showCapacitacion && (
+            <CapacitacionPanel
+              isOpen={showCapacitacion}
+              onClose={() => setShowCapacitacion(false)}
+            />
+          )}
+          {videosAbierto && (
+            <VideosPanel
+              isOpen={videosAbierto}
+              onClose={() => setVideosAbierto(false)}
+            />
+          )}
+          {AlmacenesAbierto && (
+            <GestionAlmacenesPanel
+              isOpen={AlmacenesAbierto}
+              onClose={() => setAlmacenesAbierto(false)}
+            />
+          )}
+          {PresupuestosAbierto && (
+            <PresupuestosPanel
+              isOpen={PresupuestosAbierto}
+              onClose={() => setPresupuestosAbierto(false)}
+            />
+          )}
+          {boletinesAbierto && (
+            <BoletinesPanel
+              isOpen={boletinesAbierto}
+              onClose={() => setBoletinesAbierto(false)}
+            />
+          )}
+          {marketingAbierto && (
+            <MarketingPanel
+              isOpen={marketingAbierto}
+              onClose={() => setMarketingAbierto(false)}
+            />
+          )}
+          {inventariosAbierto && (
+            <InventariosPanel
+              isOpen={inventariosAbierto}
+              onClose={() => setInventariosAbierto(false)}
+            />
+          )}
+          {procesosAbierto && (
+            <ProcesosPanel
+              isOpen={procesosAbierto}
+              onClose={() => setProcesosAbierto(false)}
+            />
+          )}
+          {<CuentasPanel
+            isOpen={cuentasAbierto}
+            onClose={() => setCuentasAbierto(false)}
+            panelRef={cuentasRef}
+          />}
+        </Suspense>
       </AnimatePresence>
                 
     </div>
