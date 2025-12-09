@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import MultiLevelDrawer from "./MultiLevelDrawer";
 import MultiLevelMenu from "./MultiLevelMenu";
 import GenericPanel from "./GenericPanel";
+import IframeWithLoader from "./common/InframeWithLoader";
 
 export default function ManualesPanel({ isOpen, onClose }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -121,10 +122,10 @@ export default function ManualesPanel({ isOpen, onClose }) {
                   {selectedNode.type === "folder" ? (
                     <p className="text-gray-500">Carpeta seleccionada.</p>
                   ) : (
-                    <iframe
+                    <IframeWithLoader
                       src={selectedNode.url}
                       className="flex-1 w-full border rounded-md"
-                      allow="fullscreen"
+                      //allow="fullscreen"
                     />
                   )}
                 </div>
