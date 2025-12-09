@@ -36,7 +36,7 @@ import CuentasPanel from "./CuentasPanel";
 */}
 const EstadoCuentaPanel = lazy(() => import("./EstadoCuentaPanel"));
 const ManualesPanel = lazy(() => import("./ManualesPanel"));
-const CapacitacionPanel = lazy(() => import("./CapacitacionesPanel"));
+const CapacitacionPanel = lazy(() => import("./CapacitacionPanel"));
 const VideosPanel = lazy(() => import("./VideosPanel"));
 const GestionAlmacenesPanel = lazy(() => import("./GestionAlmacenesPanel"));
 const PresupuestosPanel = lazy(() => import("./PresupuestosPanel"));
