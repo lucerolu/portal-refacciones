@@ -5,11 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function IframeWithLoader({ src, className }) {
   const [hideLoader, setHideLoader] = useState(false);
 
-  // fallback automático
+  // Fallback automático si Drive no dispara onLoad
   useEffect(() => {
+    console.log("🔄 Nuevo src detectado:", src);
     setHideLoader(false);
 
     const fallback = setTimeout(() => {
+      console.log("⏳ Activando fallback: mostrando contenido");
       setHideLoader(true);
     }, 5500);
 
@@ -17,11 +19,20 @@ export default function IframeWithLoader({ src, className }) {
   }, [src]);
 
   const handleLoad = () => {
-    setTimeout(() => setHideLoader(true), 300);
+    console.log("⚡ IFRAME cargó: evento onLoad detectado");
+    setTimeout(() => {
+      console.log("✔ Loader ocultado tras onLoad");
+      setHideLoader(true);
+    }, 300);
   };
 
+  // Log cada render
+  console.log("hideLoader state:", hideLoader);
+
   return (
-    <div className="relative w-full h-full flex-1 min-h-[300px] overflow-hidden">
+    <div className="relative w-full h-full flex-1 min-h-[300px]">
+      {/* <div className="relative w-full h-full flex-1 min-h-[300px] overflow-hidden"> */}
+      
       <AnimatePresence>
         {!hideLoader && (
           <motion.div
