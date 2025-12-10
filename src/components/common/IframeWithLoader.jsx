@@ -11,7 +11,7 @@ export default function IframeWithLoader({ src, className }) {
 
     const fallback = setTimeout(() => {
       setHideLoader(true);
-    }, 1200); // 1.2s mínimo
+    }, 5500); // 1.2s mínimo
 
     return () => clearTimeout(fallback);
   }, [src]);
