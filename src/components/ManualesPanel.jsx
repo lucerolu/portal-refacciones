@@ -96,7 +96,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
                 />
               </div>
 
-              <div className="flex-1 p-3 overflow-auto h-full min-h-0">
+              <div className="flex-1 p-3 overflow-auto h-full min-h-[300px]">
                 {!selectedNode ? (
                 <p className="text-gray-500">Selecciona un documento o carpeta.</p>
               ) : (
@@ -149,4 +149,3 @@ export default function ManualesPanel({ isOpen, onClose }) {
     </>
   );
 }
-

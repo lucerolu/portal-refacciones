@@ -5,24 +5,23 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function IframeWithLoader({ src, className }) {
   const [hideLoader, setHideLoader] = useState(false);
 
-  // 🔥 fallback automático (Drive no envía onLoad)
+  // fallback automático
   useEffect(() => {
-    setHideLoader(false); // cada vez que cambia el src
+    setHideLoader(false);
 
     const fallback = setTimeout(() => {
       setHideLoader(true);
-    }, 5500); // 1.2s mínimo
+    }, 5500);
 
     return () => clearTimeout(fallback);
   }, [src]);
 
   const handleLoad = () => {
-    // 🔥 si Drive sí dispara el evento (a veces), quitamos el loader antes
     setTimeout(() => setHideLoader(true), 300);
   };
 
   return (
-    <div className="relative w-full h-full flex-1 [transform:translateZ(0)] overflow-hidden">
+    <div className="relative w-full h-full flex-1 min-h-[300px] overflow-hidden">
       <AnimatePresence>
         {!hideLoader && (
           <motion.div
@@ -39,7 +38,7 @@ export default function IframeWithLoader({ src, className }) {
               transition={{
                 repeat: Infinity,
                 duration: 0.9,
-                ease: "linear"
+                ease: "linear",
               }}
             />
             <div className="mt-3 text-gray-600 font-medium tracking-wide">
@@ -55,9 +54,8 @@ export default function IframeWithLoader({ src, className }) {
         className={`w-full h-full rounded-lg border-0 ${className}`}
         loading="lazy"
         allow="fullscreen"
-        style={{ pointerEvents: hideLoader ? "auto" : "none" }}  
+        style={{ pointerEvents: hideLoader ? "auto" : "none" }}
       />
     </div>
   );
-
 }
