@@ -22,11 +22,12 @@ export default function IframeWithLoader({ src, className }) {
   };
 
   return (
-    <div className="relative w-full h-full flex-1">
+    <div className="relative w-full h-full flex-1 [transform:translateZ(0)]">
       <AnimatePresence>
         {!hideLoader && (
           <motion.div
-            className="absolute inset-0 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm z-20"
+            className="absolute inset-0 flex flex-col items-center justify-center 
+                      bg-white/60 backdrop-blur-sm z-[9999]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -57,4 +58,5 @@ export default function IframeWithLoader({ src, className }) {
       />
     </div>
   );
+
 }
