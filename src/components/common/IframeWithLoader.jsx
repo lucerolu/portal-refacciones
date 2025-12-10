@@ -22,7 +22,7 @@ export default function IframeWithLoader({ src, className }) {
   };
 
   return (
-    <div className="relative w-full h-full flex-1 [transform:translateZ(0)]">
+    <div className="relative w-full h-full flex-1 [transform:translateZ(0)] overflow-hidden">
       <AnimatePresence>
         {!hideLoader && (
           <motion.div

@@ -60,7 +60,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
           <div className="w-64 border-r p-4 flex flex-col gap-4">
             <h3 className="font-semibold">Categorías</h3>
 
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto h-full">
               {leftMenuData.map((n) => (
                 <button
                   key={n.id}
