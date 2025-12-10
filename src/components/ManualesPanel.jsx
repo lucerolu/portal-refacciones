@@ -55,7 +55,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
   return (
     <>
       <MultiLevelDrawer isOpen={isOpen} onClose={onClose}>
-        <div className="bg-white rounded-2xl shadow p-4 flex h-[70vh] w-full overflow-x-auto">
+        <div className="bg-white rounded-2xl shadow p-4 flex h-full min-h-0 w-full overflow-x-auto">
           {/* izquierda */}
           <div className="w-64 border-r p-4 flex flex-col gap-4">
             <h3 className="font-semibold">Categorías</h3>
@@ -87,7 +87,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
                 : "Selecciona una categoría"}
             </h3>
 
-            <div className="flex-1 flex border rounded-md overflow-hidden">
+            <div className="flex-1 flex border rounded-md overflow-hidden min-h-0">
               <div className="w-1/2 border-r p-3">
                 <MultiLevelMenu
                   data={activeSubmenu ? rightItems : []}
