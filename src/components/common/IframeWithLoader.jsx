@@ -55,6 +55,7 @@ export default function IframeWithLoader({ src, className }) {
         className={`w-full h-full rounded-lg border-0 ${className}`}
         loading="lazy"
         allow="fullscreen"
+        style={{ pointerEvents: hideLoader ? "auto" : "none" }}  
       />
     </div>
   );
