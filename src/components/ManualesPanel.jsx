@@ -4,6 +4,7 @@ import MultiLevelDrawer from "./MultiLevelDrawer";
 import MultiLevelMenu from "./MultiLevelMenu";
 import GenericPanel from "./GenericPanel";
 import IframeWithLoader from "./common/IframeWithLoader";
+import PanelLoader from "./common/PanelLoader";
 
 export default function ManualesPanel({ isOpen, onClose }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -11,6 +12,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
   const [driveData, setDriveData] = useState([]);  // ← AQUÍ GUARDAMOS GOOGLE DRIVE
   const [selectedNode, setSelectedNode] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [loadingStructure, setLoadingStructure] = useState(true);
 
   // Cargar datos del backend
   useEffect(() => {
@@ -36,6 +38,8 @@ export default function ManualesPanel({ isOpen, onClose }) {
         setDriveData(adaptTree(json));
       } catch (err) {
         console.error("Error loading drive:", err);
+      } finally {
+        setLoadingStructure(false); // 👈 Oculta loader al terminar
       }
     };
 
@@ -56,6 +60,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
     <>
       <MultiLevelDrawer isOpen={isOpen} onClose={onClose}>
         <div className="bg-white rounded-2xl shadow p-4 flex h-[75vh] w-full overflow-x-auto min-h-0">
+          {loadingStructure && <PanelLoader />}
           {/* izquierda */}
           <div className="w-64 border-r p-4 flex flex-col gap-4">
             <h3 className="font-semibold">Categorías</h3>
@@ -81,6 +86,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
 
           {/* derecha */}
           <div className="flex-1 p-4 flex flex-col min-h-0">
+            {console.log("selectedNode:", selectedNode)}
             <h3 className="font-semibold mb-2">
               {activeSubmenu
                 ? leftMenuData.find((n) => n.id === activeSubmenu)?.label

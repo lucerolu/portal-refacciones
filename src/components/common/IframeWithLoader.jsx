@@ -13,7 +13,7 @@ export default function IframeWithLoader({ src, className }) {
     const fallback = setTimeout(() => {
       console.log("⏳ Activando fallback: mostrando contenido");
       setHideLoader(true);
-    }, 5500);
+    }, 1200);
 
     return () => clearTimeout(fallback);
   }, [src]);
