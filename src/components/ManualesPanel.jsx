@@ -80,7 +80,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
           </div>
 
           {/* derecha */}
-          <div className="flex-1 p-4 flex flex-col">
+          <div className="flex-1 p-4 flex flex-col min-h-0">
             <h3 className="font-semibold mb-2">
               {activeSubmenu
                 ? leftMenuData.find((n) => n.id === activeSubmenu)?.label
@@ -96,7 +96,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
                 />
               </div>
 
-              <div className="flex-1 p-3 overflow-auto">
+              <div className="flex-1 p-3 overflow-auto h-full min-h-0">
                 {!selectedNode ? (
                 <p className="text-gray-500">Selecciona un documento o carpeta.</p>
               ) : (
