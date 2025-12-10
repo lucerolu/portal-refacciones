@@ -20,6 +20,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
 
     const fetchData = async () => {
       try {
+        setLoadingStructure(true);
         const res = await fetch("/api/drive");
         const json = await res.json();
 

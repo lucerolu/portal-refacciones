@@ -18,6 +18,7 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
 
     const fetchData = async () => {
       try {
+        setLoadingStructure(true);
         const res = await fetch("/api/driveCapacitacion");
         const json = await res.json();
 

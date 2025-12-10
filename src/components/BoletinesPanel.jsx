@@ -18,6 +18,7 @@ export default function BoletinesPanel({ isOpen, onClose }) {
 
     const fetchData = async () => {
       try {
+        setLoadingStructure(true);
         const res = await fetch("/api/driveBoletines");
         const json = await res.json();
 
