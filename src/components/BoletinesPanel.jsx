@@ -4,12 +4,14 @@ import MultiLevelDrawer from "./MultiLevelDrawer";
 import MultiLevelMenu from "./MultiLevelMenu";
 import GenericPanel from "./GenericPanel";
 import IframeWithLoader from "./common/IframeWithLoader";
+import PanelLoader from "./common/PanelLoader";
 
 export default function BoletinesPanel({ isOpen, onClose }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [openPanelItem, setOpenPanelItem] = useState(null);
   const [driveData, setDriveData] = useState([]);
   const [selectedNode, setSelectedNode] = useState(null);
+  const [loadingStructure, setLoadingStructure] = useState(true);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -31,6 +33,8 @@ export default function BoletinesPanel({ isOpen, onClose }) {
         setDriveData(adaptTree(json));
       } catch (err) {
         console.error("Error loading data:", err);
+      } finally {
+        setLoadingStructure(false); // 👈 Oculta loader al terminar
       }
     };
 
@@ -45,16 +49,19 @@ export default function BoletinesPanel({ isOpen, onClose }) {
     return node?.children || [];
   })();
 
+  const handleOpenPanel = (item) => setOpenPanelItem(item);
+
   return (
     <>
       <MultiLevelDrawer isOpen={isOpen} onClose={onClose}>
-        <div className="bg-white rounded-2xl shadow p-4 flex h-[70vh] w-full overflow-x-auto">
+        <div className="bg-white rounded-2xl shadow p-4 flex h-[75vh] w-full overflow-x-auto min-h-0">
+          {loadingStructure && <PanelLoader />}
 
           {/* Panel izquierdo */}
           <div className="w-64 border-r p-4 flex flex-col gap-4">
             <h3 className="font-semibold">Categorías de boletines</h3>
 
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto h-full">
               {leftMenuData.map((n) => (
                 <button
                   key={n.id}
@@ -74,22 +81,23 @@ export default function BoletinesPanel({ isOpen, onClose }) {
           </div>
 
           {/* Panel derecho */}
-          <div className="flex-1 p-4 flex flex-col">
+          <div className="flex-1 p-4 flex flex-col min-h-0">
             <h3 className="font-semibold mb-2">
               {activeSubmenu
                 ? leftMenuData.find((n) => n.id === activeSubmenu)?.label
                 : "Selecciona una categoría de boletines"}
             </h3>
 
-            <div className="flex-1 flex border rounded-md overflow-hidden">
+            <div className="flex-1 flex border rounded-md overflow-hidden min-h-0">
               <div className="w-1/2 border-r p-3">
                 <MultiLevelMenu
                   data={activeSubmenu ? rightItems : []}
+                  onOpenPanel={handleOpenPanel}
                   onSelectItem={setSelectedNode}
                 />
               </div>
 
-              <div className="flex-1 p-3 overflow-auto">
+              <div className="flex-1 p-3 overflow-auto h-full min-h-[300px]">
                 {!selectedNode ? (
                   <p className="text-gray-500">
                     Selecciona un archivo para previsualizarlo.
@@ -117,7 +125,7 @@ export default function BoletinesPanel({ isOpen, onClose }) {
                       <IframeWithLoader
                         src={selectedNode.url}
                         className="flex-1 w-full border rounded-md"
-                        allow="fullscreen"
+                        //allow="fullscreen"
                       />
                     )}
                   </div>
