@@ -123,14 +123,19 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
               {seleccion.cuentas
                 .filter(c => c.cuenta || c.clabe)
                 .map((c, i) => (
-                  <div key={i} className="mb-3 p-3 bg-white rounded-lg shadow relative">
-
+                  <div
+                    key={i}
+                    className="relative mb-3 p-3 bg-white rounded-lg shadow 
+                              sm:flex sm:items-start sm:justify-between"
+                  >
                     {/* ✔ QR por cada tarjeta */}
                     {qrMap[c.clabe] && (
                       <img
                         src={qrMap[c.clabe]}
                         alt="QR"
-                        className="absolute top-4 right-4 w-24 h-24 rounded-lg shadow"
+                        className="w-24 h-24 rounded-lg shadow
+                        sm:absolute sm:top-4 sm:right-4
+                        mx-auto mt-3 sm:mt-0 sm:mx-0"
                       />
                     )}
 
