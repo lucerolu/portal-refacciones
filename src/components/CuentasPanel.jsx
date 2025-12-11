@@ -125,41 +125,49 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
                 .map((c, i) => (
                   <div
                     key={i}
-                    className="relative mb-3 p-3 bg-white rounded-lg shadow 
-                              sm:flex sm:items-start sm:justify-between"
+                    className="relative mb-3 p-3 bg-white rounded-lg shadow
+                              sm:flex sm:items-start sm:justify-between sm:gap-4"
                   >
-                    {/* ✔ QR por cada tarjeta */}
+
+                    {/* Columna izquierda: datos y botones */}
+                    <div className="flex-1">
+
+                      <p><strong>Banco:</strong> {c.banco || "—"}</p>
+                      <p><strong>Cuenta:</strong> {c.cuenta || "—"}</p>
+                      <p><strong>CLABE:</strong> {c.clabe || "—"}</p>
+                      <p><strong>Moneda:</strong> {c.moneda}</p>
+
+                      <div className="flex gap-3 mt-2 flex-wrap">
+                        <button
+                          className="no-print text-sm px-3 py-1 bg-cyan-600 text-white rounded-lg"
+                          onClick={() => copiar(c.cuenta || "")}
+                        >
+                          Copiar cuenta
+                        </button>
+
+                        <button
+                          className="no-print text-sm px-3 py-1 bg-purple-600 text-white rounded-lg"
+                          onClick={() => copiar(c.clabe || "")}
+                        >
+                          Copiar CLABE
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Columna derecha: QR */}
                     {qrMap[c.clabe] && (
                       <img
                         src={qrMap[c.clabe]}
                         alt="QR"
-                        className="w-24 h-24 rounded-lg shadow
-                        sm:absolute sm:top-4 sm:right-4
-                        mx-auto mt-3 sm:mt-0 sm:mx-0"
+                        className="
+                          w-24 h-24 rounded-lg shadow
+                          sm:relative sm:top-0 sm:right-0
+                          mx-auto mt-4 sm:mt-0
+                        "
                       />
                     )}
-
-                    <p><strong>Banco:</strong> {c.banco || "—"}</p>
-                    <p><strong>Cuenta:</strong> {c.cuenta || "—"}</p>
-                    <p><strong>CLABE:</strong> {c.clabe || "—"}</p>
-                    <p><strong>Moneda:</strong> {c.moneda}</p>
-
-                    <div className="flex gap-3 mt-2">
-                      <button
-                        className="no-print text-sm px-3 py-1 bg-cyan-600 text-white rounded-lg"
-                        onClick={() => copiar(c.cuenta || "")}
-                      >
-                        Copiar cuenta
-                      </button>
-
-                      <button
-                        className="no-print text-sm px-3 py-1 bg-purple-600 text-white rounded-lg"
-                        onClick={() => copiar(c.clabe || "")}
-                      >
-                        Copiar CLABE
-                      </button>
-                    </div>
                   </div>
+
                 ))}
             </div>
 
