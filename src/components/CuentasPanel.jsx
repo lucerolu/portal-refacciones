@@ -76,10 +76,10 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-start p-4 pt-24 z-50">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-start p-4 pt-24 pb-24 z-50">
       <div
         ref={panelRef}
-        className="bg-white p-6 rounded-2xl w-full max-w-2xl shadow-xl relative max-h-[90vh] overflow-y-auto"
+        className="bg-white p-6 pb-10 rounded-2xl w-full max-w-2xl shadow-xl relative max-h-[80vh] overflow-y-auto"
       >
         <button
           onClick={onClose}
@@ -92,20 +92,22 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
           Cuentas Bancarias
         </h2>
 
-        <select
-          className="w-full p-3 border rounded-xl mb-5"
-          onChange={(e) => {
-            const suc = cuentasBancarias.find((s) => s.nombre === e.target.value);
-            setSeleccion(suc);
-          }}
-        >
-          <option value="">Selecciona una sucursal</option>
-          {cuentasBancarias.map((s) => (
-            <option key={s.nombre} value={s.nombre}>
-              {s.nombre}
-            </option>
-          ))}
-        </select>
+        <div className="mb-8 mt-4">
+          <select
+            className="w-full p-3 border rounded-xl"
+            onChange={(e) => {
+              const suc = cuentasBancarias.find((s) => s.nombre === e.target.value);
+              setSeleccion(suc);
+            }}
+          >
+            <option value="">Selecciona una sucursal</option>
+            {cuentasBancarias.map((s) => (
+              <option key={s.nombre} value={s.nombre}>
+                {s.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {seleccion && (
           <div ref={cardRef} className="bg-gray-50 p-6 rounded-xl shadow-md border">
