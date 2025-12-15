@@ -17,7 +17,8 @@ import {
   Building2, 
   ListChecks, 
   PackageSearch,
-  Videotape 
+  Videotape,
+  CoinsIcon 
 } from "lucide-react";
 import Navbar from "./Navbar";
 import ConstelacionesFondo from "./ConstelacionesFondo";
@@ -87,8 +88,8 @@ const sucursalesBonificaciones = [
 ];
 
 const comprasFormatos = [
-  { nombre: "Seguimiento pagos", url: "https://1drv.ms/x/c/505c76d8838d38ab/ES1WD8mXwoJGhKJHezKKpTEBE8lV2knEpJmcjYZrZl6SwA?e=VDngZN&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMTAwLTAwMDAwMDAwMDAwMH0" },
-  { nombre: "Seguimiento pedidos", url: "https://docs.google.com/spreadsheets/d/1baGGvXTqdTTCZwx-WctaqZvo6AKGwfAJABR938E3lMc/edit?usp=sharing" },
+  { nombre: "Seguimiento pedidos", url: "https://docs.google.com/spreadsheets/d/1ApXWPwKXZABhI6sYtYPPssYUBjUn5WleABOPKxeiVzs/edit?usp=sharing" },
+  { nombre: "Seguimiento pagos", url: "https://docs.google.com/spreadsheets/d/1baGGvXTqdTTCZwx-WctaqZvo6AKGwfAJABR938E3lMc/edit?usp=sharing" },
 ];
 
 export default function PortalInicio() {
@@ -265,7 +266,7 @@ export default function PortalInicio() {
           onClick={() => setEstadoCuentaAbierto(true)}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-pink-500 cursor-pointer h-full"
         >
-          <PiggyBank className="w-10 h-10 text-pink-600 mb-4 group-hover:text-white transition-colors" />
+          <CoinsIcon className="w-10 h-10 text-pink-600 mb-4 group-hover:text-white transition-colors" />
           <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
             Estado de cuenta
           </h2>
@@ -569,12 +570,16 @@ export default function PortalInicio() {
               onClose={() => setProcesosAbierto(false)}
             />
           )}
-          {<CuentasPanel
-            isOpen={cuentasAbierto}
-            onClose={() => setCuentasAbierto(false)}
-            panelRef={cuentasRef}
-          />}
+          
+
         </Suspense>
+        {cuentasAbierto && (
+            <CuentasPanel
+              isOpen={cuentasAbierto}
+              onClose={() => setCuentasAbierto(false)}
+              panelRef={cuentasRef}
+            />
+          )}
       </AnimatePresence>
                 
     </div>

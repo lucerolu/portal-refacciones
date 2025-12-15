@@ -11,7 +11,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
   const [openPanelItem, setOpenPanelItem] = useState(null);
   const [driveData, setDriveData] = useState([]);  // ← AQUÍ GUARDAMOS GOOGLE DRIVE
   const [selectedNode, setSelectedNode] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
+  //const [selectedItem, setSelectedItem] = useState(null);
   const [loadingStructure, setLoadingStructure] = useState(true);
 
   // Cargar datos del backend

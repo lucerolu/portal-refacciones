@@ -1,3 +1,4 @@
+//src\components\common\PanelLoader.jsx
 import { motion } from "framer-motion";
 
 export default function PanelLoader() {
