@@ -277,8 +277,8 @@ export const cuentasBancarias = [
     nombre: "Zapata",
     cuentas: [
       {
-        banco: "",
-        cuenta: "",
+        banco: "BBVA",
+        cuenta: "0191794663",
         clabe: "",
         moneda: "MXN",
       },
