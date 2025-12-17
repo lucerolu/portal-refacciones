@@ -6,7 +6,7 @@ import GenericPanel from "./GenericPanel";
 import IframeWithLoader from "./common/IframeWithLoader";
 import PanelLoader from "./common/PanelLoader";
 
-export default function VideosPanel({ isOpen, onClose }) {
+export default function LlantasPanel({ isOpen, onClose }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [openPanelItem, setOpenPanelItem] = useState(null);
   const [driveData, setDriveData] = useState([]);
