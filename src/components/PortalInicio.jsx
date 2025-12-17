@@ -5,9 +5,9 @@ import {
   BarChart3, 
   FileText, 
   ChevronDown, 
-  PiggyBank, 
+  //PiggyBank, 
   Video, 
-  ShoppingCart, 
+  //ShoppingCart, 
   BadgePercent, 
   Library, 
   Boxes, 
@@ -18,7 +18,9 @@ import {
   ListChecks, 
   PackageSearch,
   Videotape,
-  CoinsIcon 
+  CoinsIcon,
+  CircleDot,
+  Sprout
 } from "lucide-react";
 import Navbar from "./Navbar";
 import ConstelacionesFondo from "./ConstelacionesFondo";
@@ -46,6 +48,8 @@ const MarketingPanel = lazy(() => import("./MarketingPanel"));
 const InventariosPanel = lazy(() => import("./InventariosPanel"));
 const ProcesosPanel = lazy(() => import("./ProcesosPanel"));
 const CuentasPanel = lazy(() => import("./CuentasPanel"));
+const LlantasPanel = lazy(() => import("./LlantasPanel"));
+const CanaPanel = lazy(() => import("./CanaPanel"));
 
 
 // Lista de sucursales con URLs
@@ -107,6 +111,8 @@ export default function PortalInicio() {
   const [inventariosAbierto, setInventariosAbierto] = useState(false);
   const [videosAbierto, setVideosAbierto] = useState(false);
   const [comprasAbierto, setComprasAbierto] = useState(false);
+  const [llantasAbierto, setLlantasAbierto] = useState(false);
+  const [canaAbierto, setCanaAbierto] = useState(false);
 
 
   //REFERENCIAS
@@ -505,6 +511,34 @@ export default function PortalInicio() {
           </p>
         </motion.div>
 
+        {/* Tarjeta 15 - Línea de llantas */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setVideosAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-black hover:text-white cursor-pointer h-full"
+        >
+          <CircleDot className="w-10 h-10 text-black mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Llantas</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">
+            Catálogos e información de utilidad
+          </p>
+        </motion.div>
+
+        {/* Tarjeta 16 - Línea de caña */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setVideosAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-yellow-800 hover:text-white cursor-pointer h-full"
+        >
+          <Sprout className="w-10 h-10 text-yellow-800 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Línea de caña</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">
+            Catálogos e información
+          </p>
+        </motion.div>
+
       </div>
 
       <AnimatePresence>
@@ -568,6 +602,18 @@ export default function PortalInicio() {
             <ProcesosPanel
               isOpen={procesosAbierto}
               onClose={() => setProcesosAbierto(false)}
+            />
+          )}
+          {llantasAbierto && (
+            <LlantasPanel
+              isOpen={llantasAbierto}
+              onClose={() => setLlantasAbierto(false)}
+            />
+          )}
+          {canaAbierto && (
+            <CanaPanel
+              isOpen={canaAbierto}
+              onClose={() => setCanaAbierto(false)}
             />
           )}
           
