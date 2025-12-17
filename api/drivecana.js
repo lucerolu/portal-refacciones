@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     res.status(200).json(tree);
 
   } catch (error) {
-    console.error("driveVideos error:", error);
-    res.status(500).json({ error: "Error loading videos." });
+    console.error("driveCana error:", error);
+    res.status(500).json({ error: "Error loading carpeta." });
   }
 }

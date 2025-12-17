@@ -515,7 +515,7 @@ export default function PortalInicio() {
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
-          onClick={() => setVideosAbierto(true)}
+          onClick={() => setLlantasAbierto(true)}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-black hover:text-white cursor-pointer h-full"
         >
           <CircleDot className="w-10 h-10 text-black mb-4 group-hover:text-white transition-colors" />
@@ -529,7 +529,7 @@ export default function PortalInicio() {
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
           whileTap={{ scale: 0.98 }}
-          onClick={() => setVideosAbierto(true)}
+          onClick={() => setCanaAbierto(true)}
           className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-yellow-800 hover:text-white cursor-pointer h-full"
         >
           <Sprout className="w-10 h-10 text-yellow-800 mb-4 group-hover:text-white transition-colors" />
