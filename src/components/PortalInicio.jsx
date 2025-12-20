@@ -90,7 +90,6 @@ const comprasFormatos = [
   { nombre: "Seguimiento pagos", url: "https://docs.google.com/spreadsheets/d/1baGGvXTqdTTCZwx-WctaqZvo6AKGwfAJABR938E3lMc/edit?usp=sharing" },
 ];
 
-
 /* =======================
    COMPONENT
 ======================= */
@@ -98,10 +97,11 @@ export default function PortalInicio() {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [bonificacionesAbierto, setBonificacionesAbierto] = useState(false);
   const [comprasAbierto, setComprasAbierto] = useState(false);
-
   const [activePanel, setActivePanel] = useState(null);
 
-  const menuRef = useRef(null);
+  const liguesRef = useRef(null);
+  const bonificacionesRef = useRef(null);
+  const comprasRef = useRef(null);
   const panelRef = useRef(null);
 
   /* =======================
@@ -112,19 +112,21 @@ export default function PortalInicio() {
       if (panelRef.current && !panelRef.current.contains(e.target)) {
         setActivePanel(null);
       }
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
+
+      if (
+        liguesRef.current && !liguesRef.current.contains(e.target) &&
+        bonificacionesRef.current && !bonificacionesRef.current.contains(e.target) &&
+        comprasRef.current && !comprasRef.current.contains(e.target)
+      ) {
         setMenuAbierto(false);
         setBonificacionesAbierto(false);
         setComprasAbierto(false);
       }
     };
 
-    if (activePanel || menuAbierto || bonificacionesAbierto || comprasAbierto) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
+    document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [activePanel, menuAbierto, bonificacionesAbierto, comprasAbierto]);
+  }, []);
 
   /* =======================
      RENDER
@@ -151,11 +153,14 @@ export default function PortalInicio() {
           <p>Visualiza estadísticas y reportes.</p>
         </motion.a>
 
-        {/* Ligues */}
-        <div ref={menuRef} className="relative">
+        {/* ================= LIGUES ================= */}
+        <div ref={liguesRef} className="relative">
           <motion.div
             whileHover={{ scale: 1.05, y: -5 }}
-            onClick={() => setMenuAbierto(!menuAbierto)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setMenuAbierto(!menuAbierto);
+            }}
             className="card cursor-pointer"
             style={{ "--card-color": "#dfbd15ff" }}
           >
@@ -166,10 +171,101 @@ export default function PortalInicio() {
 
           <AnimatePresence>
             {menuAbierto && (
-              <motion.div className="dropdown">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute top-full left-0 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50"
+              >
                 {sucursales.map((s, i) => (
-                  <a key={i} href={s.url} target="_blank" rel="noopener noreferrer">
+                  <a
+                    key={i}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-3 py-2 rounded-lg hover:bg-yellow-100"
+                  >
                     {s.nombre}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ================= COMPRAS ================= */}
+        <div ref={comprasRef} className="relative">
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setComprasAbierto(!comprasAbierto);
+            }}
+            className="card cursor-pointer"
+            style={{ "--card-color": "#680985ff" }}
+          >
+            <BadgePercent className="icon text-purple-600" />
+            <h2>Compras a proveedores externos</h2>
+            <ChevronDown className={comprasAbierto ? "rotate-180" : ""} />
+          </motion.div>
+
+          <AnimatePresence>
+            {comprasAbierto && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute top-full left-0 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50"
+              >
+                {comprasFormatos.map((c, i) => (
+                  <a
+                    key={i}
+                    href={c.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-3 py-2 rounded-lg hover:bg-purple-100"
+                  >
+                    {c.nombre}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ================= BONIFICACIONES ================= */}
+        <div ref={bonificacionesRef} className="relative">
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setBonificacionesAbierto(!bonificacionesAbierto);
+            }}
+            className="card cursor-pointer"
+            style={{ "--card-color": "#74b79aff" }}
+          >
+            <BadgePercent className="icon text-teal-600" />
+            <h2>Bonificaciones</h2>
+            <ChevronDown className={bonificacionesAbierto ? "rotate-180" : ""} />
+          </motion.div>
+
+          <AnimatePresence>
+            {bonificacionesAbierto && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute top-full left-0 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50"
+              >
+                {sucursalesBonificaciones.map((b, i) => (
+                  <a
+                    key={i}
+                    href={b.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-3 py-2 rounded-lg hover:bg-teal-100"
+                  >
+                    {b.nombre}
                   </a>
                 ))}
               </motion.div>
@@ -208,28 +304,6 @@ export default function PortalInicio() {
         >
           <Video className="icon text-orange-600" />
           <h2>Capacitación</h2>
-        </motion.div>
-
-        {/* Compras a proveedores externos */}
-        <motion.div
-          whileHover={{ scale: 1.05, y: -5 }}
-          onClick={() => setActivePanel("compras")}
-          className="card cursor-pointer"
-          style={{ "--card-color": "#680985ff" }}
-        >
-          <BadgePercent className="icon text-purple-600" />
-          <h2>Compras a proveedores externos</h2>
-        </motion.div>
-
-        {/* Bonificaciones */}
-        <motion.div
-          whileHover={{ scale: 1.05, y: -5 }}
-          onClick={() => setActivePanel("bonificaciones")}
-          className="card cursor-pointer"
-          style={{ "--card-color": "#74b79aff" }}
-        >
-          <BadgePercent className="icon text-teal-600" />
-          <h2>Bonificaciones</h2>
         </motion.div>
 
         {/* Gestión de almacenes */}
@@ -353,16 +427,16 @@ export default function PortalInicio() {
           <h2>Material de juntas</h2>
         </motion.div>
 
+
+
       </div>
 
       {/* ================= PANELS ================= */}
       <AnimatePresence>
         <Suspense fallback={<div className="text-white">Cargando…</div>}>
-
           {activePanel === "estadoCuenta" && (
             <EstadoCuentaPanel onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-
           {activePanel === "manuales" && (
             <ManualesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
@@ -414,7 +488,6 @@ export default function PortalInicio() {
           {activePanel === "material" && (
             <MaterialPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-
         </Suspense>
       </AnimatePresence>
     </div>
