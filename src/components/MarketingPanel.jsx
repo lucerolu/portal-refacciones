@@ -19,7 +19,7 @@ export default function MarketingPanel({ isOpen, onClose }) {
     const fetchData = async () => {
       try {
         setLoadingStructure(true);
-        const res = await fetch("/api/driveMarketing");
+        const res = await fetch("/api/drive?seccion=marketing");
         const json = await res.json();
 
         const adaptTree = (nodes) =>

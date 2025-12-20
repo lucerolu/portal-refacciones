@@ -21,7 +21,7 @@ export default function ManualesPanel({ isOpen, onClose }) {
     const fetchData = async () => {
       try {
         setLoadingStructure(true);
-        const res = await fetch("/api/drive");
+        const res = await fetch("/api/drive?seccion=manuales");
         const json = await res.json();
 
         // adaptamos un poquitito para usar tu estructura actual:

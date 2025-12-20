@@ -19,7 +19,7 @@ export default function LlantasPanel({ isOpen, onClose }) {
     const fetchData = async () => {
       try {
         setLoadingStructure(true);
-        const res = await fetch("/api/driveLlantas");
+        const res = await fetch("/api/drive?seccion=videos");
         const json = await res.json();
 
         const adaptTree = (nodes) =>

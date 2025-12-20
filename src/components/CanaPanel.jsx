@@ -19,7 +19,7 @@ export default function CanaPanel({ isOpen, onClose }) {
     const fetchData = async () => {
       try {
         setLoadingStructure(true);
-        const res = await fetch("/api/driveCana");
+        const res = await fetch("/api/drive?seccion=cana");
         const json = await res.json();
 
         const adaptTree = (nodes) =>

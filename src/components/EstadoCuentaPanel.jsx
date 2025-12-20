@@ -22,7 +22,7 @@ export default function EstadoCuentaPanel({ onClose, panelRef }) {
       setFallbackDone(true);
     }, 6000);
 
-    fetch("/api/driveEstadoCuenta")
+    fetch("/api/drive?seccion=videos")
       .then(res => res.json())
       .then(data => {
         setTree(data);

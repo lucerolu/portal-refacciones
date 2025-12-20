@@ -19,7 +19,7 @@ export default function ProcesosPanel({ isOpen, onClose }) {
     const fetchData = async () => {
       try {
         setLoadingStructure(true);
-        const res = await fetch("/api/driveProcesos");
+        const res = await fetch("/api/drive?seccion=procesos");
         const json = await res.json();
 
         const adaptTree = (nodes) =>

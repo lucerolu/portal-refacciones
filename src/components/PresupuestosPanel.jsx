@@ -19,7 +19,7 @@ export default function PresupuestosPanel({ isOpen, onClose }) {
     const fetchData = async () => {
       try {
         setLoadingStructure(true);
-        const res = await fetch("/api/drivePresupuestos");
+        const res = await fetch("/api/drive?seccion=presupuestos");
         const json = await res.json();
 
         const adaptTree = (nodes) =>
