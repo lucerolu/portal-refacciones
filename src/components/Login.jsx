@@ -29,7 +29,7 @@ export default function Login({ onLogin }) {
         {error && (
           <p className="text-red-500 text-sm mb-4">{error}</p>
         )}
-
+|
         <input
           type="text"
           placeholder="Usuario"

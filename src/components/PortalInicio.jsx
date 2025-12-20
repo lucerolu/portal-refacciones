@@ -20,7 +20,8 @@ import {
   Videotape,
   CoinsIcon,
   CircleDot,
-  Sprout
+  Sprout,
+  FolderCheck
 } from "lucide-react";
 import Navbar from "./Navbar";
 import ConstelacionesFondo from "./ConstelacionesFondo";
@@ -50,7 +51,7 @@ const ProcesosPanel = lazy(() => import("./ProcesosPanel"));
 const CuentasPanel = lazy(() => import("./CuentasPanel"));
 const LlantasPanel = lazy(() => import("./LlantasPanel"));
 const CanaPanel = lazy(() => import("./CanaPanel"));
-
+const MaterialPanel = lazy(() => import("./MaterialPanel"));
 
 // Lista de sucursales con URLs
 const sucursales = [
@@ -113,6 +114,7 @@ export default function PortalInicio() {
   const [comprasAbierto, setComprasAbierto] = useState(false);
   const [llantasAbierto, setLlantasAbierto] = useState(false);
   const [canaAbierto, setCanaAbierto] = useState(false);
+  const [materialAbierto, setMaterialAbierto] = useState(false);
 
 
   //REFERENCIAS
@@ -539,6 +541,20 @@ export default function PortalInicio() {
           </p>
         </motion.div>
 
+        {/* Tarjeta 16 - Línea de material de juntas */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setMaterialAbierto(true)}
+          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-yellow-300 hover:text-white cursor-pointer h-full"
+        >
+          <FolderCheck className="w-10 h-10 text-yellow-300 mb-4 group-hover:text-white transition-colors" />
+          <h2 className="text-xl font-semibold mb-2">Material de juntas</h2>
+          <p className="text-gray-600 text-sm group-hover:text-gray-200">
+            Presentaciones e informes presentados en juntas anteriores
+          </p>
+        </motion.div>
+
       </div>
 
       <AnimatePresence>
@@ -614,6 +630,12 @@ export default function PortalInicio() {
             <CanaPanel
               isOpen={canaAbierto}
               onClose={() => setCanaAbierto(false)}
+            />
+          )}
+          {materialAbierto && (
+            <MaterialPanel
+              isOpen={materialAbierto}
+              onClose={() => setMaterialAbierto(false)}
             />
           )}
           
