@@ -144,6 +144,7 @@ export default function PortalInicio() {
           rel="noopener noreferrer"
           whileHover={{ scale: 1.05, y: -5 }}
           className="card"
+          style={{ "--card-color": "#1e3a8a" }}
         >
           <BarChart3 className="icon text-blue-900" />
           <h2>Dashboard</h2>
@@ -156,6 +157,7 @@ export default function PortalInicio() {
             whileHover={{ scale: 1.05, y: -5 }}
             onClick={() => setMenuAbierto(!menuAbierto)}
             className="card cursor-pointer"
+            style={{ "--card-color": "#dfbd15ff" }}
           >
             <FileText className="icon text-yellow-500" />
             <h2>Ligues</h2>
@@ -180,6 +182,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("estadoCuenta")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#e910c1ff" }}
         >
           <CoinsIcon className="icon text-pink-600" />
           <h2>Estado de cuenta</h2>
@@ -190,6 +193,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("manuales")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#946a9aff" }}
         >
           <Library className="icon text-fuchsia-700" />
           <h2>Manuales</h2>
@@ -200,6 +204,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("capacitacion")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#ed8f0cff" }}
         >
           <Video className="icon text-orange-600" />
           <h2>Capacitación</h2>
@@ -210,6 +215,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("compras")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#680985ff" }}
         >
           <BadgePercent className="icon text-purple-600" />
           <h2>Compras a proveedores externos</h2>
@@ -220,6 +226,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("bonificaciones")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#74b79aff" }}
         >
           <BadgePercent className="icon text-teal-600" />
           <h2>Bonificaciones</h2>
@@ -230,6 +237,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("almacenes")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#35cf5cff" }}
         >
           <Boxes className="icon text-emerald-700" />
           <h2>Gestión de almacenes</h2>
@@ -240,6 +248,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("presupuestos")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#636f28ff" }}
         >
           <ClipboardList className="icon text-yellow-800" />
           <h2>Presupuestos</h2>
@@ -250,6 +259,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("boletines")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#8a1e1eff" }}
         >
           <Megaphone className="icon text-red-600" />
           <h2>Boletines</h2>
@@ -260,6 +270,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("procesos")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#32aed7ff" }}
         >
           <BookOpenText className="icon text-teal-500" />
           <h2>Procesos y políticas</h2>
@@ -270,6 +281,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("marketing")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#8307f7ff" }}
         >
           <Building2 className="icon text-violet-500" />
           <h2>Marketing</h2>
@@ -280,6 +292,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("cuentas")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#6cebf4ff" }}
         >
           <ListChecks className="icon text-cyan-600" />
           <h2>Cuentas bancarias</h2>
@@ -290,6 +303,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("inventarios")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#f71ac0ff" }}
         >
           <PackageSearch className="icon text-pink-500" />
           <h2>Inventarios</h2>
@@ -300,6 +314,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("videos")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#112f80ff" }}
         >
           <Videotape className="icon text-blue-700" />
           <h2>Videos promocionales</h2>
@@ -310,6 +325,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("llantas")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#000000ff" }}
         >
           <CircleDot className="icon text-black" />
           <h2>Llantas</h2>
@@ -320,6 +336,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("cana")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#187a11ff" }}
         >
           <Sprout className="icon text-yellow-700" />
           <h2>Línea de caña</h2>
@@ -330,6 +347,7 @@ export default function PortalInicio() {
           whileHover={{ scale: 1.05, y: -5 }}
           onClick={() => setActivePanel("material")}
           className="card cursor-pointer"
+          style={{ "--card-color": "#fac907ff" }}
         >
           <FolderCheck className="icon text-yellow-400" />
           <h2>Material de juntas</h2>
