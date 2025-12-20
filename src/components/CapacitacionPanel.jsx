@@ -19,7 +19,7 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
     const fetchData = async () => {
       try {
         setLoadingStructure(true);
-        const res = await fetch("/api/driveCapacitacion");
+        const res = await fetch("/api/drive?seccion=capacitacion");
         const json = await res.json();
 
         const adaptTree = (nodes) =>
@@ -41,6 +41,13 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
 
     fetchData();
   }, [isOpen]);
+
+  // 🔹 2. useEffect NUEVO → auto-selecciona la primera categoría
+  useEffect(() => {
+    if (driveData.length > 0 && !activeSubmenu) {
+      setActiveSubmenu(driveData[0].id);
+    }
+  }, [driveData]);
 
   const leftMenuData = driveData;
 
