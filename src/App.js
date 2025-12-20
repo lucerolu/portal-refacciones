@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 import Navbar from "./components/Navbar";
 import PortalInicio from "./components/PortalInicio";
 import Login from "./components/Login";
