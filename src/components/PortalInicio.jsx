@@ -1,43 +1,32 @@
-import { useState, useRef, useEffect } from "react";
-import { lazy, Suspense } from "react";
+import { useState, useRef, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  BarChart3, 
-  FileText, 
-  ChevronDown, 
-  //PiggyBank, 
-  Video, 
-  //ShoppingCart, 
-  BadgePercent, 
-  Library, 
-  Boxes, 
-  ClipboardList, 
-  Megaphone, 
-  BookOpenText, 
-  Building2, 
-  ListChecks, 
+import {
+  BarChart3,
+  FileText,
+  ChevronDown,
+  Video,
+  BadgePercent,
+  Library,
+  Boxes,
+  ClipboardList,
+  Megaphone,
+  BookOpenText,
+  Building2,
+  ListChecks,
   PackageSearch,
   Videotape,
   CoinsIcon,
   CircleDot,
   Sprout,
-  FolderCheck
+  FolderCheck,
 } from "lucide-react";
+
 import Navbar from "./Navbar";
 import ConstelacionesFondo from "./ConstelacionesFondo";
-{/*
-import EstadoCuentaPanel from "./EstadoCuentaPanel";
-import ManualesPanel from "./ManualesPanel";
-import CapacitacionPanel from "./CapacitacionPanel";
-import VideosPanel from "./VideosPanel";
-import GestionAlmacenesPanel from "./GestionAlmacenesPanel";
-import PresupuestosPanel from "./PresupuestosPanel";
-import BoletinesPanel from "./BoletinesPanel";
-import MarketingPanel from "./MarketingPanel";
-import InventariosPanel from "./InventariosPanel";
-import ProcesosPanel from "./ProcesosPanel";
-import CuentasPanel from "./CuentasPanel"; 
-*/}
+
+/* =======================
+   Lazy panels
+======================= */
 const EstadoCuentaPanel = lazy(() => import("./EstadoCuentaPanel"));
 const ManualesPanel = lazy(() => import("./ManualesPanel"));
 const CapacitacionPanel = lazy(() => import("./CapacitacionPanel"));
@@ -52,6 +41,10 @@ const CuentasPanel = lazy(() => import("./CuentasPanel"));
 const LlantasPanel = lazy(() => import("./LlantasPanel"));
 const CanaPanel = lazy(() => import("./CanaPanel"));
 const MaterialPanel = lazy(() => import("./MaterialPanel"));
+
+/* =======================
+   DATA (sin cambios)
+======================= */
 
 // Lista de sucursales con URLs
 const sucursales = [
@@ -97,169 +90,84 @@ const comprasFormatos = [
   { nombre: "Seguimiento pagos", url: "https://docs.google.com/spreadsheets/d/1baGGvXTqdTTCZwx-WctaqZvo6AKGwfAJABR938E3lMc/edit?usp=sharing" },
 ];
 
+
+/* =======================
+   COMPONENT
+======================= */
 export default function PortalInicio() {
   const [menuAbierto, setMenuAbierto] = useState(false);
-  const [estadoCuentaAbierto, setEstadoCuentaAbierto] = useState(false);
   const [bonificacionesAbierto, setBonificacionesAbierto] = useState(false);
-  const [manualesAbierto, setManualesAbierto] = useState(false);
-  const [showCapacitacion, setShowCapacitacion] = useState(false);
-  const [AlmacenesAbierto, setAlmacenesAbierto] = useState(false);
-  const [PresupuestosAbierto, setPresupuestosAbierto] = useState(false);
-  const [boletinesAbierto, setBoletinesAbierto] = useState(false);
-  const [procesosAbierto, setProcesosAbierto] = useState(false);
-  const [marketingAbierto, setMarketingAbierto] = useState(false);
-  const [cuentasAbierto, setCuentasAbierto] = useState(false);
-  const [inventariosAbierto, setInventariosAbierto] = useState(false);
-  const [videosAbierto, setVideosAbierto] = useState(false);
   const [comprasAbierto, setComprasAbierto] = useState(false);
-  const [llantasAbierto, setLlantasAbierto] = useState(false);
-  const [canaAbierto, setCanaAbierto] = useState(false);
-  const [materialAbierto, setMaterialAbierto] = useState(false);
 
+  const [activePanel, setActivePanel] = useState(null);
 
-  //REFERENCIAS
-  const menuRef = useRef(null); // referencia al menú
-  const panelRef = useRef(null); 
-  const estadoCuentaRef = useRef(null);
-  const bonificacionesRef = useRef(null);
-  const cuentasRef = useRef(null);
-  const comprasRef = useRef(null);
+  const menuRef = useRef(null);
+  const panelRef = useRef(null);
 
-  //CERRAR EL MENU DE LIGUES AL HACER CLIC AFUERA
+  /* =======================
+     Click fuera GLOBAL
+  ======================= */
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (panelRef.current && !panelRef.current.contains(e.target)) {
+        setActivePanel(null);
+      }
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         setMenuAbierto(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Cerrar el panel de Estado de Cuenta al hacer clic fuera
-  useEffect(() => {
-    const handleClickOutsidePanel = (event) => {
-      if (estadoCuentaRef.current && !estadoCuentaRef.current.contains(event.target)) {
-        setEstadoCuentaAbierto(false);
-      }
-    };
-
-    if (estadoCuentaAbierto) {
-      document.addEventListener("mousedown", handleClickOutsidePanel);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutsidePanel);
-    };
-  }, [estadoCuentaAbierto]);
-
-  //UseEffect para el menu de bonificaciones (CERRAR EL HACER CLIC FUERA)
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (bonificacionesRef.current && !bonificacionesRef.current.contains(event.target)) {
         setBonificacionesAbierto(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  //UseEffect para el panel de cuentas
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (cuentasRef.current && !cuentasRef.current.contains(event.target)) {
-        setCuentasAbierto(false);
-      }
-    };
-
-    if (cuentasAbierto) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [cuentasAbierto]);
-
-  //UseEffect para el menu de compras)
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (comprasRef.current && !comprasRef.current.contains(event.target)) {
         setComprasAbierto(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (activePanel || menuAbierto || bonificacionesAbierto || comprasAbierto) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [activePanel, menuAbierto, bonificacionesAbierto, comprasAbierto]);
 
-  //RENDER PRINCIPAL
-
+  /* =======================
+     RENDER
+  ======================= */
   return (
-    <div className="relative min-h-screen bg-transparent flex flex-col items-center justify-center p-8 overflow-hidden z-10">
+    <div className="relative min-h-screen flex flex-col items-center p-8 overflow-hidden">
       <ConstelacionesFondo />
       <Navbar />
 
-      <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full z-20 relative items-stretch auto-rows-fr">
-        {/* Tarjeta 1 - Dashboard */}
+      {/* ================= GRID ================= */}
+      <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full z-20">
+
+        {/* Dashboard */}
         <motion.a
           href="https://dshb-dm-refacciones.streamlit.app/#resumen-general-de-compras-2025"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-blue-900 h-full"
+          className="card"
         >
-          <BarChart3 className="w-10 h-10 text-blue-900 mb-4 group-hover:text-white" />
-          <h2 className="text-xl font-semibold mb-2 group-hover:text-white transition-colors">
-            Dashboard
-          </h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Visualiza las estadísticas de compras, estado de cuenta y ligues.
-          </p>
+          <BarChart3 className="icon text-blue-900" />
+          <h2>Dashboard</h2>
+          <p>Visualiza estadísticas y reportes.</p>
         </motion.a>
 
-        {/* Tarjeta 2 - Ligues */}
-        <div ref={menuRef} className="relative h-full flex">
+        {/* Ligues */}
+        <div ref={menuRef} className="relative">
           <motion.div
             whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              setMenuAbierto(!menuAbierto);
-            }}
-            className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-yellow-500 cursor-pointer h-full w-full"
+            onClick={() => setMenuAbierto(!menuAbierto)}
+            className="card cursor-pointer"
           >
-            <FileText className="w-10 h-10 text-yellow-500 mb-4 group-hover:text-white transition-colors" />
-            <h2 className="text-xl font-semibold mb-2 group-hover:text-white">Ligues</h2>
-            <p className="text-gray-600 text-sm group-hover:text-gray-200">
-              Accede a los documentos de ligues por sucursal.
-            </p>
-            <ChevronDown
-              className={`w-5 h-5 mt-3 text-gray-600 group-hover:text-white transition-transform ${
-                menuAbierto ? "rotate-180" : ""
-              }`}
-            />
+            <FileText className="icon text-yellow-500" />
+            <h2>Ligues</h2>
+            <ChevronDown className={menuAbierto ? "rotate-180" : ""} />
           </motion.div>
 
-          {/* Menú desplegable animado */}
           <AnimatePresence>
             {menuAbierto && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="absolute top-full left-1 -translate-x-1/2 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50 text-left max-h-72 overflow-y-auto"
-              >
-                {sucursales.map((sucursal, i) => (
-                  <a
-                    key={i}
-                    href={sucursal.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-gray-800 py-1.5 px-2 rounded-lg hover:bg-blue-100 transition-colors"
-                  >
-                    {sucursal.nombre}
+              <motion.div className="dropdown">
+                {sucursales.map((s, i) => (
+                  <a key={i} href={s.url} target="_blank" rel="noopener noreferrer">
+                    {s.nombre}
                   </a>
                 ))}
               </motion.div>
@@ -267,389 +175,230 @@ export default function PortalInicio() {
           </AnimatePresence>
         </div>
 
-        {/* Tarjeta 3 - Estado de cuenta */}
-        <motion.div
-          whileHover={{ scale: !estadoCuentaAbierto ? 1.05 : 1, y: !estadoCuentaAbierto ? -5 : 0 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setEstadoCuentaAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-pink-500 cursor-pointer h-full"
-        >
-          <CoinsIcon className="w-10 h-10 text-pink-600 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
-            Estado de cuenta
-          </h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Consulta los pagos registrados por sucursal.
-          </p>
-        </motion.div>
-
-        {/* Tarjeta 4 - Capacitación */}
-        <motion.a
-          onClick={() => setShowCapacitacion(true)}
-          whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-orange-700 cursor-pointer h-full"
-        >
-          <Video className="w-10 h-10 text-orange-700 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
-            Capacitación
-          </h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Accede material de capacitación.
-          </p>
-        </motion.a>
-
-        {/* Tarjeta 5 - Compras a proveedores externos */}
-        <div ref={comprasRef} className="relative h-full flex">
-          <motion.div
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              setComprasAbierto(!comprasAbierto);
-            }}
-            className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-purple-600 cursor-pointer h-full w-full"
-          >
-            <BadgePercent className="w-10 h-10 text-purple-600 mb-4 group-hover:text-white transition-colors" />
-            <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
-              Compras a proveedores externos
-            </h2>
-            <p className="text-gray-600 text-sm group-hover:text-gray-200">
-              Seguimiento de compras a proveedores
-            </p>
-            <ChevronDown
-              className={`w-5 h-5 mt-3 text-gray-600 group-hover:text-white transition-transform ${
-                bonificacionesAbierto ? "rotate-180" : ""
-              }`}
-            />
-          </motion.div>
-
-          {/* Menú desplegable Bonificaciones */}
-          <AnimatePresence>
-            {comprasAbierto && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="absolute top-full left-1 -translate-x-1/2 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50 text-left max-h-72 overflow-y-auto"
-              >
-                {comprasFormatos.map((sucursal, i) => (
-                  <a
-                    key={i}
-                    href={sucursal.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-gray-800 py-1.5 px-2 rounded-lg hover:bg-teal-100 transition-colors"
-                  >
-                    {sucursal.nombre}
-                  </a>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Tarjeta 6 - Bonificaciones */}
-        <div ref={bonificacionesRef} className="relative h-full flex">
-          <motion.div
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              setBonificacionesAbierto(!bonificacionesAbierto);
-            }}
-            className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-teal-600 cursor-pointer h-full w-full"
-          >
-            <BadgePercent className="w-10 h-10 text-teal-600 mb-4 group-hover:text-white transition-colors" />
-            <h2 className="text-xl font-semibold mb-2 group-hover:text-white">
-              Bonificaciones
-            </h2>
-            <p className="text-gray-600 text-sm group-hover:text-gray-200">
-              Seguimiento de bonificaciones por sucursal
-            </p>
-            <ChevronDown
-              className={`w-5 h-5 mt-3 text-gray-600 group-hover:text-white transition-transform ${
-                bonificacionesAbierto ? "rotate-180" : ""
-              }`}
-            />
-          </motion.div>
-
-          {/* Menú desplegable Bonificaciones */}
-          <AnimatePresence>
-            {bonificacionesAbierto && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="absolute top-full left-1 -translate-x-1/2 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50 text-left max-h-72 overflow-y-auto"
-              >
-                {sucursalesBonificaciones.map((sucursal, i) => (
-                  <a
-                    key={i}
-                    href={sucursal.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-gray-800 py-1.5 px-2 rounded-lg hover:bg-teal-100 transition-colors"
-                  >
-                    {sucursal.nombre}
-                  </a>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Tarjeta 7 - Manuales de partes, catálogos y fichas técnicas */}
-        <motion.div
-          whileHover={{ scale: !manualesAbierto ? 1.05 : 1, y: !manualesAbierto ? -5 : 0 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setManualesAbierto(true)}              // 👈 AQUÍ ABRE EL PANEL
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-fuchsia-900 hover:text-white cursor-pointer h-full"
-        >
-          <Library className="w-10 h-10 text-fuchsia-900 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Manuales de partes, catálogos y fichas técnicas</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Documentación
-          </p>
-        </motion.div>
-
-        {/* Tarjeta 8 - GESTION DE ALMACENES */}
+        {/* Estado de cuenta */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setAlmacenesAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-emerald-800 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("estadoCuenta")}
+          className="card cursor-pointer"
         >
-          <Boxes className="w-10 h-10 text-emerald-800 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Gestión de almacenes</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Control y operaciones de almacén.</p>
+          <CoinsIcon className="icon text-pink-600" />
+          <h2>Estado de cuenta</h2>
         </motion.div>
 
-        {/* Tarjeta 9 - PRESUPUESTOS */}
+        {/* Manuales */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setPresupuestosAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-yellow-900 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("manuales")}
+          className="card cursor-pointer"
         >
-          <ClipboardList className="w-10 h-10 text-yellow-900 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Presupuestos</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Presupuestos del departamento general y por sucursal.</p>
+          <Library className="icon text-fuchsia-700" />
+          <h2>Manuales</h2>
         </motion.div>
 
-        {/* Tarjeta 9 - BOLETINES */}
+        {/* Capacitación */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setBoletinesAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-red-600 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("capacitacion")}
+          className="card cursor-pointer"
         >
-          <Megaphone className="w-10 h-10 text-red-600 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Boletines</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Avisos, novedades, comunicados internos y de John Deere.</p>
+          <Video className="icon text-orange-600" />
+          <h2>Capacitación</h2>
         </motion.div>
 
-        {/* Tarjeta 10 - PROCESOS Y POLITICAS */}
+        {/* Compras a proveedores externos */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setProcesosAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-teal-400 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("compras")}
+          className="card cursor-pointer"
         >
-          <BookOpenText className="w-10 h-10 text-teal-400 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Procesos y políticas</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Normativas internas y procedimientos.</p>
+          <BadgePercent className="icon text-purple-600" />
+          <h2>Compras a proveedores externos</h2>
         </motion.div>
 
-        {/* Tarjeta 11 - MARKETING */}
+        {/* Bonificaciones */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setMarketingAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-violet-400 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("bonificaciones")}
+          className="card cursor-pointer"
         >
-          <Building2 className="w-10 h-10 text-violet-400 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Marketing</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Material gráfico y promocionales.</p>
+          <BadgePercent className="icon text-teal-600" />
+          <h2>Bonificaciones</h2>
         </motion.div>
 
-        {/* Tarjeta 12 - Cuentas bancarias */}
-        <motion.div
-          whileHover={{ scale: !cuentasAbierto ? 1.05: 1, y: !cuentasAbierto ? -5:0 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setCuentasAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-cyan-600 hover:text-white cursor-pointer h-full"
-        >
-          <ListChecks className="w-10 h-10 text-cyan-600 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Cuentas bancarias</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Carátula bancaria por agencia para pagos de refacciones para clientes.</p>
-        </motion.div>
-
-        {/* Tarjeta 13 - INVENTARIOS CICLICOS Y SEMESTRALES */}
+        {/* Gestión de almacenes */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setInventariosAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-pink-400 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("almacenes")}
+          className="card cursor-pointer"
         >
-          <PackageSearch className="w-10 h-10 text-pink-400 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Inventarios</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">Control de inventarios cíclicos y generales.</p>
+          <Boxes className="icon text-emerald-700" />
+          <h2>Gestión de almacenes</h2>
         </motion.div>
 
-        {/* Tarjeta 14 - videos promocionales */}
+        {/* Presupuestos */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setVideosAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-blue-800 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("presupuestos")}
+          className="card cursor-pointer"
         >
-          <Videotape className="w-10 h-10 text-blue-800 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Videos promocionales</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Internos y por proveedor
-          </p>
+          <ClipboardList className="icon text-yellow-800" />
+          <h2>Presupuestos</h2>
         </motion.div>
 
-        {/* Tarjeta 15 - Línea de llantas */}
+        {/* Boletines */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setLlantasAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-black hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("boletines")}
+          className="card cursor-pointer"
         >
-          <CircleDot className="w-10 h-10 text-black mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Llantas</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Catálogos e información de utilidad
-          </p>
+          <Megaphone className="icon text-red-600" />
+          <h2>Boletines</h2>
         </motion.div>
 
-        {/* Tarjeta 16 - Línea de caña */}
+        {/* Procesos y políticas */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setCanaAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-yellow-800 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("procesos")}
+          className="card cursor-pointer"
         >
-          <Sprout className="w-10 h-10 text-yellow-800 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Línea de caña</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Catálogos e información
-          </p>
+          <BookOpenText className="icon text-teal-500" />
+          <h2>Procesos y políticas</h2>
         </motion.div>
 
-        {/* Tarjeta 16 - Línea de material de juntas */}
+        {/* Marketing */}
         <motion.div
           whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setMaterialAbierto(true)}
-          className="group bg-white text-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-all hover:bg-yellow-300 hover:text-white cursor-pointer h-full"
+          onClick={() => setActivePanel("marketing")}
+          className="card cursor-pointer"
         >
-          <FolderCheck className="w-10 h-10 text-yellow-300 mb-4 group-hover:text-white transition-colors" />
-          <h2 className="text-xl font-semibold mb-2">Material de juntas</h2>
-          <p className="text-gray-600 text-sm group-hover:text-gray-200">
-            Presentaciones e informes presentados en juntas anteriores
-          </p>
+          <Building2 className="icon text-violet-500" />
+          <h2>Marketing</h2>
+        </motion.div>
+
+        {/* Cuentas bancarias */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          onClick={() => setActivePanel("cuentas")}
+          className="card cursor-pointer"
+        >
+          <ListChecks className="icon text-cyan-600" />
+          <h2>Cuentas bancarias</h2>
+        </motion.div>
+
+        {/* Inventarios */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          onClick={() => setActivePanel("inventarios")}
+          className="card cursor-pointer"
+        >
+          <PackageSearch className="icon text-pink-500" />
+          <h2>Inventarios</h2>
+        </motion.div>
+
+        {/* Videos promocionales */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          onClick={() => setActivePanel("videos")}
+          className="card cursor-pointer"
+        >
+          <Videotape className="icon text-blue-700" />
+          <h2>Videos promocionales</h2>
+        </motion.div>
+
+        {/* Llantas */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          onClick={() => setActivePanel("llantas")}
+          className="card cursor-pointer"
+        >
+          <CircleDot className="icon text-black" />
+          <h2>Llantas</h2>
+        </motion.div>
+
+        {/* Línea de caña */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          onClick={() => setActivePanel("cana")}
+          className="card cursor-pointer"
+        >
+          <Sprout className="icon text-yellow-700" />
+          <h2>Línea de caña</h2>
+        </motion.div>
+
+        {/* Material de juntas */}
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          onClick={() => setActivePanel("material")}
+          className="card cursor-pointer"
+        >
+          <FolderCheck className="icon text-yellow-400" />
+          <h2>Material de juntas</h2>
         </motion.div>
 
       </div>
 
+      {/* ================= PANELS ================= */}
       <AnimatePresence>
         <Suspense fallback={<div className="text-white">Cargando…</div>}>
-          {estadoCuentaAbierto && (
-            <EstadoCuentaPanel
-              onClose={() => setEstadoCuentaAbierto(false)}
-              panelRef={estadoCuentaRef}
-            />
+
+          {activePanel === "estadoCuenta" && (
+            <EstadoCuentaPanel onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          
-          {manualesAbierto && (
-            <ManualesPanel
-              isOpen={manualesAbierto}
-              onClose={() => setManualesAbierto(false)}
-            />
+
+          {activePanel === "manuales" && (
+            <ManualesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {showCapacitacion && (
-            <CapacitacionPanel
-              isOpen={showCapacitacion}
-              onClose={() => setShowCapacitacion(false)}
-            />
+
+          {activePanel === "capacitacion" && (
+            <CapacitacionPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {videosAbierto && (
-            <VideosPanel
-              isOpen={videosAbierto}
-              onClose={() => setVideosAbierto(false)}
-            />
+
+          {activePanel === "videos" && (
+            <VideosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {AlmacenesAbierto && (
-            <GestionAlmacenesPanel
-              isOpen={AlmacenesAbierto}
-              onClose={() => setAlmacenesAbierto(false)}
-            />
+
+          {activePanel === "almacenes" && (
+            <GestionAlmacenesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {PresupuestosAbierto && (
-            <PresupuestosPanel
-              isOpen={PresupuestosAbierto}
-              onClose={() => setPresupuestosAbierto(false)}
-            />
+
+          {activePanel === "presupuestos" && (
+            <PresupuestosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {boletinesAbierto && (
-            <BoletinesPanel
-              isOpen={boletinesAbierto}
-              onClose={() => setBoletinesAbierto(false)}
-            />
+
+          {activePanel === "boletines" && (
+            <BoletinesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {marketingAbierto && (
-            <MarketingPanel
-              isOpen={marketingAbierto}
-              onClose={() => setMarketingAbierto(false)}
-            />
+
+          {activePanel === "marketing" && (
+            <MarketingPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {inventariosAbierto && (
-            <InventariosPanel
-              isOpen={inventariosAbierto}
-              onClose={() => setInventariosAbierto(false)}
-            />
+
+          {activePanel === "inventarios" && (
+            <InventariosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {procesosAbierto && (
-            <ProcesosPanel
-              isOpen={procesosAbierto}
-              onClose={() => setProcesosAbierto(false)}
-            />
+
+          {activePanel === "procesos" && (
+            <ProcesosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {llantasAbierto && (
-            <LlantasPanel
-              isOpen={llantasAbierto}
-              onClose={() => setLlantasAbierto(false)}
-            />
+
+          {activePanel === "cuentas" && (
+            <CuentasPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {canaAbierto && (
-            <CanaPanel
-              isOpen={canaAbierto}
-              onClose={() => setCanaAbierto(false)}
-            />
+
+          {activePanel === "llantas" && (
+            <LlantasPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {materialAbierto && (
-            <MaterialPanel
-              isOpen={materialAbierto}
-              onClose={() => setMaterialAbierto(false)}
-            />
+
+          {activePanel === "cana" && (
+            <CanaPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          
+
+          {activePanel === "material" && (
+            <MaterialPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
+          )}
 
         </Suspense>
-        {cuentasAbierto && (
-            <CuentasPanel
-              isOpen={cuentasAbierto}
-              onClose={() => setCuentasAbierto(false)}
-              panelRef={cuentasRef}
-            />
-          )}
       </AnimatePresence>
-                
     </div>
   );
 }
