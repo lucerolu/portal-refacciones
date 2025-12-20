@@ -8,11 +8,13 @@ import PanelLoader from "./common/PanelLoader";
 export default function CapacitacionPanel({ isOpen, onClose }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [openPanelItem, setOpenPanelItem] = useState(null);
-  const [driveData, setDriveData] = useState([]);  
+  const [driveData, setDriveData] = useState([]);
   const [selectedNode, setSelectedNode] = useState(null);
   const [loadingStructure, setLoadingStructure] = useState(true);
 
-  // Cargar Drive Capacitacion
+  /* =======================
+     LOAD DRIVE DATA
+  ======================= */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -34,7 +36,7 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
         setDriveData(adaptTree(json));
       } catch (err) {
         console.error("Error loading capacitación:", err);
-      }finally{
+      } finally {
         setLoadingStructure(false);
       }
     };
@@ -42,39 +44,46 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
     fetchData();
   }, [isOpen]);
 
-  // 🔹 2. useEffect NUEVO → auto-selecciona la primera categoría
+  /* =======================
+     RESET AL CERRAR
+  ======================= */
   useEffect(() => {
-    if (driveData.length > 0 && !activeSubmenu) {
-      setActiveSubmenu(driveData[0].id);
+    if (!isOpen) {
+      setActiveSubmenu(null);
+      setSelectedNode(null);
     }
-  }, [driveData]);
+  }, [isOpen]);
 
   const leftMenuData = driveData;
 
-  const rightItems = (() => {
-    if (!activeSubmenu) return [];
-    const node = leftMenuData.find((n) => n.id === activeSubmenu);
-    return node?.children || [];
-  })();
+  const rightItems = activeSubmenu
+    ? leftMenuData.find((n) => n.id === activeSubmenu)?.children || []
+    : [];
 
   const handleOpenPanel = (item) => setOpenPanelItem(item);
 
   return (
     <>
       <MultiLevelDrawer isOpen={isOpen} onClose={onClose}>
-        <div className="bg-white rounded-2xl shadow p-4 flex h-[75vh] w-full overflow-x-auto min-h-0">
+        <div className="bg-white rounded-2xl shadow p-4 flex h-[75vh] w-full min-h-0">
           {loadingStructure && <PanelLoader />}
-          {/* Panel izquierdo */}
+
+          {/* ===== PANEL IZQUIERDO ===== */}
           <div className="w-64 border-r p-4 flex flex-col gap-4">
             <h3 className="font-semibold">Categorías</h3>
 
-            <div className="flex-1 overflow-auto h-full">
+            <div className="flex-1 overflow-auto">
               {leftMenuData.map((n) => (
                 <button
                   key={n.id}
-                  onClick={() => setActiveSubmenu(n.id)}
+                  onClick={() => {
+                    setActiveSubmenu(n.id);
+                    setSelectedNode(null);
+                  }}
                   className={`w-full text-left px-3 py-2 rounded-md ${
-                    activeSubmenu === n.id ? "bg-pink-50" : "hover:bg-gray-100"
+                    activeSubmenu === n.id
+                      ? "bg-pink-50"
+                      : "hover:bg-gray-100"
                   }`}
                 >
                   {n.label}
@@ -87,7 +96,7 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
             </button>
           </div>
 
-          {/* Panel derecho */}
+          {/* ===== PANEL DERECHO ===== */}
           <div className="flex-1 p-4 flex flex-col min-h-0">
             <h3 className="font-semibold mb-2">
               {activeSubmenu
@@ -96,26 +105,33 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
             </h3>
 
             <div className="flex-1 flex border rounded-md overflow-hidden min-h-0">
+              {/* Menú intermedio */}
               <div className="w-1/2 border-r p-3">
-                <MultiLevelMenu
-                  data={activeSubmenu ? rightItems : []}
-                  onOpenPanel={handleOpenPanel}
-                  onSelectItem={setSelectedNode}
-                />
+                {!activeSubmenu ? (
+                  <p className="text-gray-400 text-sm">
+                    Selecciona una categoría del panel izquierdo.
+                  </p>
+                ) : (
+                  <MultiLevelMenu
+                    data={rightItems}
+                    onOpenPanel={handleOpenPanel}
+                    onSelectItem={setSelectedNode}
+                  />
+                )}
               </div>
 
               {/* Vista previa */}
-              <div className="flex-1 p-3 overflow-auto h-full min-h-[300px]">
+              <div className="flex-1 p-3 overflow-auto min-h-[300px]">
                 {!selectedNode ? (
                   <p className="text-gray-500">
                     Selecciona un documento, video o presentación.
                   </p>
                 ) : (
                   <div className="flex flex-col h-full">
-
-                    {/* Barra superior */}
                     <div className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded-md mb-3">
-                      <h4 className="font-semibold text-sm">{selectedNode.label}</h4>
+                      <h4 className="font-semibold text-sm">
+                        {selectedNode.label}
+                      </h4>
 
                       {selectedNode.url && (
                         <a
@@ -129,9 +145,10 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
                       )}
                     </div>
 
-                    {/* Previsualización */}
                     {selectedNode.type === "folder" ? (
-                      <p className="text-gray-500">Carpeta seleccionada.</p>
+                      <p className="text-gray-500">
+                        Carpeta seleccionada.
+                      </p>
                     ) : (
                       <IframeWithLoader
                         src={selectedNode.url}
@@ -153,7 +170,7 @@ export default function CapacitacionPanel({ isOpen, onClose }) {
         title={openPanelItem?.name || "Detalle"}
       >
         <p className="text-sm text-gray-600">
-          Panel adicional para capacitación (si lo llegas a usar después).
+          Panel adicional para capacitación.
         </p>
       </GenericPanel>
     </>

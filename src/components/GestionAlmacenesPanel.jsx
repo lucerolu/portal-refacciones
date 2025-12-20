@@ -85,7 +85,7 @@ export default function GestionAlmacenesPanel({ isOpen, onClose }) {
             <h3 className="font-semibold mb-2">
               {activeSubmenu
                 ? leftMenuData.find((n) => n.id === activeSubmenu)?.label
-                : "Selecciona una categoría de video"}
+                : "Selecciona una categoría"}
             </h3>
 
             <div className="flex-1 flex border rounded-md overflow-hidden min-h-0">
