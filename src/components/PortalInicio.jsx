@@ -292,7 +292,7 @@ export default function PortalInicio() {
           style={{ "--card-color": "#946a9aff" }}
         >
           <Library className="icon text-fuchsia-700" />
-          <h2>Manuales</h2>
+          <h2>Catálogos, manuales y fichas técnicas</h2>
         </motion.div>
 
         {/* Capacitación */}

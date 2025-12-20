@@ -87,6 +87,8 @@ export default async function handler(req, res) {
       const response = await drive.files.list({
         q: `'${folderId}' in parents and trashed = false`,
         fields: "files(id, name, mimeType)",
+        supportsAllDrives: true,
+        includeItemsFromAllDrives: true,
       });
 
       const items = await Promise.all(
