@@ -28,19 +28,21 @@ import ConstelacionesFondo from "./ConstelacionesFondo";
    Lazy panels
 ======================= */
 const EstadoCuentaPanel = lazy(() => import("./EstadoCuentaPanel"));
-const ManualesPanel = lazy(() => import("./ManualesPanel"));
-const CapacitacionPanel = lazy(() => import("./CapacitacionPanel"));
-const VideosPanel = lazy(() => import("./VideosPanel"));
-const GestionAlmacenesPanel = lazy(() => import("./GestionAlmacenesPanel"));
-const PresupuestosPanel = lazy(() => import("./PresupuestosPanel"));
-const BoletinesPanel = lazy(() => import("./BoletinesPanel"));
-const MarketingPanel = lazy(() => import("./MarketingPanel"));
-const InventariosPanel = lazy(() => import("./InventariosPanel"));
-const ProcesosPanel = lazy(() => import("./ProcesosPanel"));
+//const ManualesPanel = lazy(() => import("./ManualesPanel"));
+//const CapacitacionPanel = lazy(() => import("./CapacitacionPanel"));
+//const VideosPanel = lazy(() => import("./VideosPanel"));
+//const GestionAlmacenesPanel = lazy(() => import("./GestionAlmacenesPanel"));
+//const PresupuestosPanel = lazy(() => import("./PresupuestosPanel"));
+//const BoletinesPanel = lazy(() => import("./BoletinesPanel"));
+//const MarketingPanel = lazy(() => import("./MarketingPanel"));
+//const InventariosPanel = lazy(() => import("./InventariosPanel"));
+//const ProcesosPanel = lazy(() => import("./ProcesosPanel"));
 const CuentasPanel = lazy(() => import("./CuentasPanel"));
-const LlantasPanel = lazy(() => import("./LlantasPanel"));
-const CanaPanel = lazy(() => import("./CanaPanel"));
-const MaterialPanel = lazy(() => import("./MaterialPanel"));
+//const LlantasPanel = lazy(() => import("./LlantasPanel"));
+//const CanaPanel = lazy(() => import("./CanaPanel"));
+//const MaterialPanel = lazy(() => import("./MaterialPanel"));
+const DriveSectionPanel = lazy(() => import("./DriveSectionPanel"));
+
 
 /* =======================
    DATA (sin cambios)
@@ -437,7 +439,7 @@ export default function PortalInicio() {
           {activePanel === "estadoCuenta" && (
             <EstadoCuentaPanel onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {activePanel === "manuales" && (
+          {/*{activePanel === "manuales" && (
             <ManualesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
 
@@ -471,12 +473,13 @@ export default function PortalInicio() {
 
           {activePanel === "procesos" && (
             <ProcesosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
+          )}*/}
 
           {activePanel === "cuentas" && (
             <CuentasPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
 
+          {/*
           {activePanel === "llantas" && (
             <LlantasPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
@@ -487,7 +490,117 @@ export default function PortalInicio() {
 
           {activePanel === "material" && (
             <MaterialPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
+          )}*/}
+          {activePanel === "manuales" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="manuales"
+              leftTitle="Categorías de manuales, catálogos y fichas técnicas"
+              emptyTitle="Selecciona una categoría"
+            />
           )}
+          {activePanel === "capacitacion" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="capacitacion"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "videos" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="videos"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "almacenes" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="almacenes"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "presupuestos" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="presupuestos"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "boletines" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="boletines"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "marketing" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="marketing"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "inventarios" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="inventarios"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "procesos" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="procesos"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "llantas" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="llantas"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "cana" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="cana"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+          {activePanel === "material" && (
+            <DriveSectionPanel
+              isOpen
+              onClose={() => setActivePanel(null)}
+              seccion="material"
+              leftTitle="Categorías"
+              emptyTitle="Selecciona una categoría"
+            />
+          )}
+
+          
         </Suspense>
       </AnimatePresence>
     </div>
