@@ -28,19 +28,9 @@ import ConstelacionesFondo from "./ConstelacionesFondo";
    Lazy panels
 ======================= */
 const EstadoCuentaPanel = lazy(() => import("./EstadoCuentaPanel"));
-//const ManualesPanel = lazy(() => import("./ManualesPanel"));
-//const CapacitacionPanel = lazy(() => import("./CapacitacionPanel"));
-//const VideosPanel = lazy(() => import("./VideosPanel"));
-//const GestionAlmacenesPanel = lazy(() => import("./GestionAlmacenesPanel"));
-//const PresupuestosPanel = lazy(() => import("./PresupuestosPanel"));
-//const BoletinesPanel = lazy(() => import("./BoletinesPanel"));
-//const MarketingPanel = lazy(() => import("./MarketingPanel"));
-//const InventariosPanel = lazy(() => import("./InventariosPanel"));
-//const ProcesosPanel = lazy(() => import("./ProcesosPanel"));
+
 const CuentasPanel = lazy(() => import("./CuentasPanel"));
-//const LlantasPanel = lazy(() => import("./LlantasPanel"));
-//const CanaPanel = lazy(() => import("./CanaPanel"));
-//const MaterialPanel = lazy(() => import("./MaterialPanel"));
+
 const DriveSectionPanel = lazy(() => import("./DriveSectionPanel"));
 
 
@@ -439,58 +429,11 @@ export default function PortalInicio() {
           {activePanel === "estadoCuenta" && (
             <EstadoCuentaPanel onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
-          {/*{activePanel === "manuales" && (
-            <ManualesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "capacitacion" && (
-            <CapacitacionPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "videos" && (
-            <VideosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "almacenes" && (
-            <GestionAlmacenesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "presupuestos" && (
-            <PresupuestosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "boletines" && (
-            <BoletinesPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "marketing" && (
-            <MarketingPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "inventarios" && (
-            <InventariosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "procesos" && (
-            <ProcesosPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}*/}
 
           {activePanel === "cuentas" && (
             <CuentasPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
           )}
 
-          {/*
-          {activePanel === "llantas" && (
-            <LlantasPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "cana" && (
-            <CanaPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}
-
-          {activePanel === "material" && (
-            <MaterialPanel isOpen onClose={() => setActivePanel(null)} panelRef={panelRef} />
-          )}*/}
           {activePanel === "manuales" && (
             <DriveSectionPanel
               isOpen
@@ -599,8 +542,6 @@ export default function PortalInicio() {
               emptyTitle="Selecciona una categoría"
             />
           )}
-
-          
         </Suspense>
       </AnimatePresence>
     </div>
