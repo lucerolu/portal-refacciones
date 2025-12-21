@@ -158,6 +158,7 @@ export default function PortalInicio() {
           >
             <FileText className="icon text-yellow-500" />
             <h2>Ligues</h2>
+            <p>Reportes de ligues por sucursal</p>
             <ChevronDown className={menuAbierto ? "rotate-180" : ""} />
           </motion.div>
 
@@ -167,7 +168,13 @@ export default function PortalInicio() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="absolute top-full left-0 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50"
+                className="
+                  absolute top-full left-0 mt-3
+                  bg-white rounded-xl shadow-xl
+                  w-full z-50
+                  max-h-64 overflow-y-auto
+                  p-2
+                "
               >
                 {sucursales.map((s, i) => (
                   <a
@@ -198,6 +205,7 @@ export default function PortalInicio() {
           >
             <BadgePercent className="icon text-purple-600" />
             <h2>Compras a proveedores externos</h2>
+            <p>Seguimiento de pedidos y pagos</p>
             <ChevronDown className={comprasAbierto ? "rotate-180" : ""} />
           </motion.div>
 
@@ -215,7 +223,7 @@ export default function PortalInicio() {
                     href={c.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block px-3 py-2 rounded-lg hover:bg-purple-100"
+                    className="block px-3 py-2 rounded-lg hover:bg-purple-200"
                   >
                     {c.nombre}
                   </a>
@@ -238,6 +246,7 @@ export default function PortalInicio() {
           >
             <BadgePercent className="icon text-teal-600" />
             <h2>Bonificaciones</h2>
+            <p>Seguimiento por sucursal</p>
             <ChevronDown className={bonificacionesAbierto ? "rotate-180" : ""} />
           </motion.div>
 
@@ -247,7 +256,13 @@ export default function PortalInicio() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="absolute top-full left-0 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50"
+                className="
+                  absolute top-full left-0 mt-3
+                  bg-white rounded-xl shadow-xl
+                  w-full z-50
+                  max-h-64 overflow-y-auto
+                  p-2
+                "
               >
                 {sucursalesBonificaciones.map((b, i) => (
                   <a
@@ -274,6 +289,7 @@ export default function PortalInicio() {
         >
           <CoinsIcon className="icon text-pink-600" />
           <h2>Estado de cuenta</h2>
+          <p>Reportes de estado de cuenta</p>
         </motion.div>
 
         {/* Manuales */}
@@ -285,6 +301,7 @@ export default function PortalInicio() {
         >
           <Library className="icon text-fuchsia-700" />
           <h2>Catálogos, manuales y fichas técnicas</h2>
+          
         </motion.div>
 
         {/* Capacitación */}
@@ -296,6 +313,7 @@ export default function PortalInicio() {
         >
           <Video className="icon text-orange-600" />
           <h2>Capacitación</h2>
+          <p>Seguimiento y material de capacitación</p>
         </motion.div>
 
         {/* Gestión de almacenes */}
@@ -318,6 +336,7 @@ export default function PortalInicio() {
         >
           <ClipboardList className="icon text-yellow-800" />
           <h2>Presupuestos</h2>
+          <p>Global y por agencia</p>
         </motion.div>
 
         {/* Boletines */}
@@ -351,6 +370,7 @@ export default function PortalInicio() {
         >
           <Building2 className="icon text-violet-500" />
           <h2>Marketing</h2>
+          <p>Material gráfico, videos promocionales y organización</p>
         </motion.div>
 
         {/* Cuentas bancarias */}
@@ -395,6 +415,7 @@ export default function PortalInicio() {
         >
           <CircleDot className="icon text-black" />
           <h2>Llantas</h2>
+          <p>Información relacionada con la línea de llantas</p>
         </motion.div>
 
         {/* Línea de caña */}
@@ -406,6 +427,7 @@ export default function PortalInicio() {
         >
           <Sprout className="icon text-yellow-700" />
           <h2>Línea de caña</h2>
+          <p>Información relacionada con la línea de caña</p>
         </motion.div>
 
         {/* Material de juntas */}
@@ -417,6 +439,7 @@ export default function PortalInicio() {
         >
           <FolderCheck className="icon text-yellow-400" />
           <h2>Material de juntas</h2>
+          <p>Presentaciones y resultados mostrados en juntas</p>
         </motion.div>
 
 
