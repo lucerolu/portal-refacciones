@@ -21,7 +21,7 @@ const SECCIONES = {
     folderEnv: "GDRIVE_ESTADO_FOLDER",
     linkType: "view",
   },
-  gestion: {
+  almacenes: {
     folderEnv: "GESTION_ALMACENES_FOLDER_ID",
     linkType: "preview",
   },
