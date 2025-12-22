@@ -1,4 +1,5 @@
 //api\send-magic-link.js
+//ENVIROMENT VARIABLES: RESEND_API_KEY, EMAIL_FROM, BASE_URL
 
 import { Resend } from "resend";
 import crypto from "crypto";
