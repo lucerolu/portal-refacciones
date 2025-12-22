@@ -1,58 +1,78 @@
+//src\components\Login.jsx
+
 import { useState } from "react";
 
-export default function Login({ onLogin }) {
-  const [usuario, setUsuario] = useState("");
-  const [contrasena, setContrasena] = useState("");
+export default function Login() {
+  const [emailUser, setEmailUser] = useState("");
+  const [status, setStatus] = useState("form"); // form | sent | error
   const [error, setError] = useState("");
 
-  const USER = "dimauser25";        // <-- tu usuario
-  const PASSWORD = "Authdms30";    // <-- tu contraseña
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (usuario === USER && contrasena === PASSWORD) {
-      localStorage.setItem("auth", "true"); // guardar sesión
-      onLogin();
-    } else {
-      setError("Usuario o contraseña incorrectos");
+
+    const email = `${emailUser}@dimasur.com.mx`;
+
+    if (!emailUser) {
+      setError("Ingresa tu correo empresarial");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/send-magic-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) throw new Error();
+
+      setStatus("sent");
+    } catch {
+      setError("Error al enviar el enlace");
+      setStatus("error");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-2xl shadow-xl w-80 text-center"
-      >
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-96 text-center">
         <h2 className="text-2xl font-bold mb-6">Acceso</h2>
 
-        {error && (
-          <p className="text-red-500 text-sm mb-4">{error}</p>
+        {status === "form" && (
+          <form onSubmit={handleSubmit}>
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+
+            <div className="flex mb-4">
+              <input
+                type="text"
+                placeholder="usuario"
+                value={emailUser}
+                onChange={(e) => setEmailUser(e.target.value)}
+                className="flex-1 p-2 border rounded-l-md"
+              />
+              <span className="p-2 bg-gray-200 border border-l-0 rounded-r-md">
+                @dimasur.com.mx
+              </span>
+            </div>
+
+            <button className="w-full bg-blue-600 text-white p-2 rounded-lg">
+              Enviar enlace
+            </button>
+          </form>
         )}
-|
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={usuario}
-          onChange={(e) => setUsuario(e.target.value)}
-          className="w-full mb-3 p-2 border rounded-md"
-        />
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-          className="w-full mb-4 p-2 border rounded-md"
-        />
+        {status === "sent" && (
+          <p className="text-green-600">
+            Te enviamos un enlace a tu correo para acceder.
+          </p>
+        )}
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
-        >
-          Entrar
-        </button>
-      </form>
+        {status === "error" && (
+          <p className="text-red-600">
+            Ocurrió un problema, intenta de nuevo.
+          </p>
+        )}
+      </div>
     </div>
   );
 }
