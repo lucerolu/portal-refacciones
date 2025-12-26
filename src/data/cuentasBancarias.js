@@ -242,8 +242,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "184141792",
-        clabe: "01290501841417928",
+        cuenta: "0184141792",
+        clabe: "012905001841417928",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
