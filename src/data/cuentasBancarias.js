@@ -80,8 +80,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "119012664",
-        clabe: "01290501190126643",
+        cuenta: "0119012664",
+        clabe: "012905001190126643",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
@@ -170,8 +170,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "186570836",
-        clabe: "01290501865708367",
+        cuenta: "0186570836",
+        clabe: "012905001865708367",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
@@ -206,8 +206,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "111636804",
-        clabe: "01290501116368045",
+        cuenta: "0111636804",
+        clabe: "012905001116368045",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
