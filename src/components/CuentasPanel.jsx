@@ -184,6 +184,27 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
             {seleccion.celular && (
               <p><strong>Celular:</strong> {seleccion.celular}</p>
             )}
+            {/* Dirección */}
+            {seleccion.direccion && (
+              <p className="mt-3">
+                <strong>Dirección:</strong> {seleccion.direccion}
+              </p>
+            )}
+
+            {/* Mapa */}
+            {seleccion.mapsUrl && (
+              <div className="mt-3 rounded-xl overflow-hidden border">
+                <iframe
+                  src={seleccion.mapsUrl}
+                  width="100%"
+                  height="200"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-xl"
+                ></iframe>
+              </div>
+            )}
+
           </div>
         )}
 

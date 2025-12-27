@@ -1,4 +1,4 @@
-//
+//src\data\cuentasBancarias.js
 export const cuentasBancarias = [
   {
     nombre: "Acayucan",
@@ -10,7 +10,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["aguirrecitlalli@dimasur.com.mx"],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Carretera Costera del Golfo Km. 22.4 S/N, Col. Francisco Villa. Acayucan, Ver. C.P. 96020",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3795.2553914537766!2d-94.92163052629509!3d17.96685118585661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ea02c157e710eb%3A0x8b3780129d706f0!2sDIMASUR%20Acayucan%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791018959!5m2!1ses-419!2smx"
   },
 
   {
@@ -31,7 +33,9 @@ export const cuentasBancarias = [
       "laturneriaaremi@dimasur.com.mx"
     ],
     telefono: "(981) 815 1056",
-    celular: "981 750 3873"
+    celular: "981 750 3873",
+    direccion: "Av. Heroe de Nacozari No. 258 Col. Sector Las Flores C.P. 24097",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3753.3954776813007!2d-90.51204752624102!3d19.823212628093458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85f8316c7d2ca475%3A0x782944b21ad7a44e!2sDIMASUR%20Campeche%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791163868!5m2!1ses-419!2smx"
   },
 
   {
@@ -54,7 +58,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["lopezmarco@dimasur.com.mx"],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Carr. Cancún Chetumal Km. 328 Mz.1 Lte.1 Sm. 29 Parque Industrial, Puerto Morelos Q. Roo C.P. 77580",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.0166871649535!2d-86.8789192262066!3d20.911648291793448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4e87a4a34f135f%3A0x153ab323cb47a2d1!2sDIMASUR%20Canc%C3%BAn%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791231404!5m2!1ses-419!2smx"
   },
 
   {
@@ -72,7 +78,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: [""],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Avenida Insurgentes # 74 Othón P. Blanco C.P.77029",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.2432819191627!2d-88.34431662627966!3d18.51790516925854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5bbb5fb6ad0001%3A0x6d3c588558bf6763!2sDIMASUR%20Chetumal%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791331933!5m2!1ses-419!2smx"
   },
 
   {
@@ -80,8 +88,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "119012664",
-        clabe: "01290501190126643",
+        cuenta: "0119012664",
+        clabe: "012905001190126643",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
@@ -90,7 +98,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: [""],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Calle Aldama #21, Col. Miguel Aleman. Comitan de Domínguez, Chiapas C.P. 30090",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15323.401471668572!2d-92.14904151720337!3d16.2281305058627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x858d3f45def7adc3%3A0x57f431cdd3672dc0!2sDimasur%20Comit%C3%A1n%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791372868!5m2!1ses-419!2smx"
   },
 
   {
@@ -108,7 +118,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: [""],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Prolongación Raul Sandoval #1301 Col. Isla, Centro. Isla, Veracruz C.P. 95640",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3793.74076130335!2d-95.53229932629314!3d18.037230683762637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ea02e78df14365%3A0x79f92a6c3e08ca2d!2sDIMASUR%20Isla%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791408419!5m2!1ses-419!2smx"
   },
 
   {
@@ -126,7 +138,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["lopezjosemaria@dimasur.com.mx"],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Calle 21 No. 416 Int. 3, Col. Cd. Industrial, Mérida, Yuc. C.P. 97288",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.527881296461!2d-89.67799342620596!3d20.931305891121408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f56772a73c725cd%3A0x7498630b30b6836a!2sDIMASUR%20M%C3%A9rida%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791453469!5m2!1ses-419!2smx"
   },
 
   {
@@ -144,7 +158,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["mendezblanca@dimasur.com.mx"],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Aut Puebla Orizaba KM 14.5, Chachapa, 72990 Parque Industrial Chachapa, Pue.",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9865684496494!2d-98.10300032626385!3d19.06432815234174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfeb0000214b01%3A0xc38d2f02267e65e1!2sDIMASUR%20Puebla%20(Distribuidor%20de%20Maquinaria%20del%20Sur!5e0!3m2!1ses-419!2smx!4v1766791501630!5m2!1ses-419!2smx"
   },
 
   {
@@ -162,7 +178,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: [""],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Carretera Costera Km. 244.5 S/N, Col. Tapachula, Centro Tapachula, Chiapas C.P. 30700",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3855.3336201362877!2d-92.27338472637096!3d14.918495069217656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x858e0f2faeae983f%3A0x86a307e87e6127a7!2sDIMASUR%20Tapachula%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791530684!5m2!1ses-419!2smx"
   },
 
   {
@@ -170,8 +188,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "186570836",
-        clabe: "01290501865708367",
+        cuenta: "0186570836",
+        clabe: "012905001865708367",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
@@ -180,7 +198,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["ruizethel@dimasur.com.mx"],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Prolongación Landero y Coss S/N Col. Hoja de Maiz, Tierra Blanca, Veracruz, C.P.95110",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.5777752416716!2d-96.35707382628135!3d18.457470171101598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c3895dccc7f931%3A0x39613b31995b1ce9!2sDIMASUR%20Tierra%20Blanca%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791566356!5m2!1ses-419!2smx"
   },
 
   {
@@ -198,7 +218,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["camarajesus@dimasur.com.mx"],
     telefono: "",
-    celular: "986 863 7203"
+    celular: "986 863 7203",
+    direccion: "Calle Centro 50 No. 372, Centro, Tizimín, Yuc. C.P. 97700",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1498505755835!2d-88.15362932619892!3d21.146433983729302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f522b3c54a8a7a7%3A0x741aa3ae05c9eb72!2sDIMASUR%20Tizim%C3%ADn%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791614500!5m2!1ses-419!2smx"
   },
 
   {
@@ -206,8 +228,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "111636804",
-        clabe: "01290501116368045",
+        cuenta: "0111636804",
+        clabe: "012905001116368045",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
@@ -216,7 +238,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["solisrolando@dimasur.com.mx"],
     telefono: "287 875 7647",
-    celular: "951 226 1544"
+    celular: "951 226 1544",
+    direccion: "Carretera Federal Tuxtepec-Ciudad Alemán, km 03 s/n Col. Víctor Bravo Ahuja,Tuxtepec Oaxaca C.P. 68376",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3792.487881053334!2d-96.13134462629155!3d18.09524758203085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c3e65f086dd921%3A0x6e2ff2d16e6a9c74!2sDIMASUR%20Tuxtepec%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791644155!5m2!1ses-419!2smx"
   },
 
   {
@@ -234,7 +258,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: ["lopezevelyn@dimasur.com.mx"],
     telefono: "",
-    celular: "229 418 6420"
+    celular: "229 418 6420",
+    direccion: "Libramiento Sur Oriente # 2642 Col. Rivera Cerro Hueco, TuxtlaGutierrez, Chiapas. C.P. 29094",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.8720498457724!2d-93.09662002632774!3d16.733234821323144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ed273d474afdbd%3A0xc112a91d982098d!2sDimasur%20Tuxtla%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791682909!5m2!1ses-419!2smx"
   },
 
   {
@@ -242,8 +268,8 @@ export const cuentasBancarias = [
     cuentas: [
       {
         banco: "BBVA",
-        cuenta: "184141792",
-        clabe: "01290501841417928",
+        cuenta: "0184141792",
+        clabe: "012905001841417928",
         moneda: "MXN",
       },
       { banco: "", cuenta: "", clabe: "", moneda: "USD" }
@@ -252,7 +278,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: [""],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Carr. Fed. 140 Veracruz-Xalapa No. 7049 Col. Las Amapolas, Veracruz, Ver. C.P.91697",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.778054761591!2d-96.20604552626098!3d19.161190149295475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c34371834ad691%3A0xcea13531a0468e97!2sDIMASUR%20Veracruz%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791718652!5m2!1ses-419!2smx"
   },
 
   {
@@ -270,7 +298,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: [""],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Carretera Villahermosa-Cárdenas Km8+100 S/N. Col. Lázaro Cárdenas, CP.86280, Centro, Tabasco",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.878757983511!2d-93.0122781262946!3d17.98437688533595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ee77d8a47c39f7%3A0xac86f61fa31aa2e2!2sDimasur%20Villahermosa!5e0!3m2!1ses-419!2smx!4v1766791754299!5m2!1ses-419!2smx"
   },
 
   {
@@ -288,7 +318,9 @@ export const cuentasBancarias = [
     rfc: "DMS000928DF8",
     notificarPago: [""],
     telefono: "",
-    celular: ""
+    celular: "",
+    direccion: "Carr. Emiliano Zapata Villahermosa km 6.5, Tierra y Libertad, 86994 Emiliano Zapata, Tab.",
+    mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800.0725420494878!2d-91.78446352630127!3d17.74122079251844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85f3cb906759a82b%3A0x269bf04c0d2daa32!2sDIMASUR%20Zapata%20(Distribuidor%20de%20Maquinaria%20del%20Sur)!5e0!3m2!1ses-419!2smx!4v1766791804036!5m2!1ses-419!2smx"
   }
 
 ];
