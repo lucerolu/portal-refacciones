@@ -6,3 +6,10 @@
   display: none !important;
 }
 
+.print-only {
+  display: none;
+}
+
+.exportando .print-only {
+  display: block;
+}

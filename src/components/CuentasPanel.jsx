@@ -8,6 +8,24 @@ import QRCode from "qrcode";
 import logo1 from "../assets/logo1.jpeg";
 import logo2 from "../assets/logo2.png";
 
+/* ===========================
+   GOOGLE MAPS STATIC (PDF)
+=========================== */
+const GOOGLE_MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+const getStaticMapUrl = (lat, lng) => {
+  if (!lat || !lng) return null;
+
+  return `https://maps.googleapis.com/maps/api/staticmap
+    ?center=${lat},${lng}
+    &zoom=16
+    &size=600x300
+    &markers=color:red|${lat},${lng}
+    &key=${GOOGLE_MAPS_KEY}
+  `.replace(/\s/g, "");
+};
+/* =========================== */
+
 export default function CuentasPanel({ isOpen, onClose, panelRef }) {
   const [seleccion, setSeleccion] = useState(null);
   const [qrMap, setQrMap] = useState({}); // ← QR por cada cuenta
@@ -184,6 +202,7 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
             {seleccion.celular && (
               <p><strong>Celular:</strong> {seleccion.celular}</p>
             )}
+
             {/* Dirección */}
             {seleccion.direccion && (
               <p className="mt-3">
@@ -193,7 +212,7 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
 
             {/* Mapa */}
             {seleccion.mapsUrl && (
-              <div className="mt-3 rounded-xl overflow-hidden border">
+              <div className="no-print mt-3 rounded-xl overflow-hidden border">
                 <iframe
                   src={seleccion.mapsUrl}
                   width="100%"
@@ -204,6 +223,20 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
                 ></iframe>
               </div>
             )}
+            {/* Mapa para PDF / imagen */}
+            {seleccion.coords && (
+              <div className="print-only mt-3 rounded-xl overflow-hidden border">
+                <img
+                  src={getStaticMapUrl(
+                    seleccion.coords.lat,
+                    seleccion.coords.lng
+                  )}
+                  alt="Mapa ubicación"
+                  className="w-full rounded-xl"
+                />
+              </div>
+            )}
+
 
           </div>
         )}
