@@ -97,6 +97,25 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
 
     pdf.addImage(imgData, "PNG", 40, 100, finalW, finalH);
 
+    // ======================
+    // MAPA (AGREGADO DIRECTO)
+    // ======================
+    if (seleccion.coords) {
+      const mapImg = new Image();
+      mapImg.src = getStaticMapUrl(
+        seleccion.coords.lat,
+        seleccion.coords.lng
+      );
+
+      await new Promise((resolve) => {
+        mapImg.onload = resolve;
+      });
+
+      const mapY = 100 + finalH + 20; // debajo del contenido
+      pdf.addImage(mapImg, "PNG", 40, mapY, 520, 260);
+      
+    }
+
     pdf.save(`Cuenta-${seleccion.nombre}.pdf`);
   };
 
@@ -232,21 +251,7 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
                 ></iframe>
               </div>
             )}
-            {/* Mapa para PDF / imagen */}
-            {seleccion.coords && (
-              <div className="print-only mt-3 rounded-xl overflow-hidden border">
-                <img
-                  src={getStaticMapUrl(
-                    seleccion.coords.lat,
-                    seleccion.coords.lng
-                  )}
-                  crossOrigin="anonymous"
-                  alt="Mapa ubicación"
-                  className="w-full h-[200px] object-cover rounded-xl"
-                />
-              </div>
-            )}
-
+            
 
           </div>
         )}
