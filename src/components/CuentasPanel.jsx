@@ -59,10 +59,19 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
   // ✔ Exportación PDF con proporción correcta (sin deformarse)
   const exportarPDF = async () => {
     prepararExport();
-    const canvas = await html2canvas(cardRef.current, { scale: 2 });
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const canvas = await html2canvas(cardRef.current, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: false,
+    });
+
     finalizarExport();
 
     const imgData = canvas.toDataURL("image/png");
+
 
     const pdf = new jsPDF({
       orientation: "portrait",
@@ -231,8 +240,9 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
                     seleccion.coords.lat,
                     seleccion.coords.lng
                   )}
+                  crossOrigin="anonymous"
                   alt="Mapa ubicación"
-                  className="w-full rounded-xl"
+                  className="w-full h-[200px] object-cover rounded-xl"
                 />
               </div>
             )}
