@@ -101,11 +101,9 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
     if (seleccion.coords) {
       try {
         const mapBase64 = await loadMapFromAPI(
-          getStaticMapUrl(
             seleccion.coords.lat,
             seleccion.coords.lng
-          )
-        );
+          );
 
         const pageLimit = 760;
         let mapY = 100 + finalH + 20;
