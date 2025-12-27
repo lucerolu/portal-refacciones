@@ -26,6 +26,23 @@ const getStaticMapUrl = (lat, lng) => {
 };
 /* =========================== */
 
+const loadImageAsBase64 = (url) =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+
+
 export default function CuentasPanel({ isOpen, onClose, panelRef }) {
   const [seleccion, setSeleccion] = useState(null);
   const [qrMap, setQrMap] = useState({}); // ← QR por cada cuenta
@@ -101,29 +118,26 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
     // MAPA (AGREGADO DIRECTO)
     // ======================
     if (seleccion.coords) {
-      const mapImg = new Image();
-      mapImg.crossOrigin = "anonymous";
-      mapImg.src = getStaticMapUrl(
-        seleccion.coords.lat,
-        seleccion.coords.lng
-      );
+      try {
+        const mapBase64 = await loadImageAsBase64(
+          getStaticMapUrl(
+            seleccion.coords.lat,
+            seleccion.coords.lng
+          )
+        );
 
-      await new Promise((resolve) => {
-        mapImg.onload = resolve;
-        mapImg.onerror = resolve;
-      });
+        const pageLimit = 760;
+        let mapY = 100 + finalH + 20;
 
-      const pageLimit = 760; // alto real usable del PDF
-      let mapY = 100 + finalH + 20;
+        if (mapY + 260 > pageLimit) {
+          mapY = pageLimit - 260;
+        }
 
-      // 🔴 Si no cabe, súbelo al espacio libre
-      if (mapY + 260 > pageLimit) {
-        mapY = pageLimit - 260;
+        pdf.addImage(mapBase64, "PNG", 40, mapY, 520, 260);
+      } catch (err) {
+        console.warn("No se pudo cargar el mapa", err);
       }
-
-      pdf.addImage(mapImg, "PNG", 40, mapY, 520, 260);
     }
-
 
     pdf.save(`Cuenta-${seleccion.nombre}.pdf`);
   };
