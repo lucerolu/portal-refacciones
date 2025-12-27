@@ -102,7 +102,7 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
     // ======================
     if (seleccion.coords) {
       const mapImg = new Image();
-      mapImg.crossOrigin = "anonymous"; // 🔴 CLAVE
+      mapImg.crossOrigin = "anonymous";
       mapImg.src = getStaticMapUrl(
         seleccion.coords.lat,
         seleccion.coords.lng
@@ -110,16 +110,20 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
 
       await new Promise((resolve) => {
         mapImg.onload = resolve;
-        mapImg.onerror = resolve; // 🔴 evita que se quede colgado
+        mapImg.onerror = resolve;
       });
 
-      try {
-        const mapY = 100 + finalH + 20;
-        pdf.addImage(mapImg, "PNG", 40, mapY, 520, 260);
-      } catch (err) {
-        console.warn("No se pudo agregar el mapa al PDF", err);
+      const pageLimit = 760; // alto real usable del PDF
+      let mapY = 100 + finalH + 20;
+
+      // 🔴 Si no cabe, súbelo al espacio libre
+      if (mapY + 260 > pageLimit) {
+        mapY = pageLimit - 260;
       }
+
+      pdf.addImage(mapImg, "PNG", 40, mapY, 520, 260);
     }
+
 
     pdf.save(`Cuenta-${seleccion.nombre}.pdf`);
   };
