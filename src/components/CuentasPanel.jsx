@@ -8,28 +8,9 @@ import QRCode from "qrcode";
 import logo1 from "../assets/logo1.jpeg";
 import logo2 from "../assets/logo2.png";
 
-/* ===========================
-   GOOGLE MAPS STATIC (PDF)
-=========================== */
-const GOOGLE_MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
-const getStaticMapUrl = (lat, lng) => {
-  if (!lat || !lng) return null;
-
-  return `https://maps.googleapis.com/maps/api/staticmap
-    ?center=${lat},${lng}
-    &zoom=16
-    &size=600x300
-    &markers=color:red|${lat},${lng}
-    &key=${GOOGLE_MAPS_KEY}
-  `.replace(/\s/g, "");
-};
-/* =========================== */
-
-const loadImageAsBase64 = (url) =>
+const loadMapFromAPI = (lat, lng) =>
   new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = "anonymous";
     img.onload = () => {
       const canvas = document.createElement("canvas");
       canvas.width = img.width;
@@ -39,7 +20,7 @@ const loadImageAsBase64 = (url) =>
       resolve(canvas.toDataURL("image/png"));
     };
     img.onerror = reject;
-    img.src = url;
+    img.src = `/api/static-map?lat=${lat}&lng=${lng}`;
   });
 
 
@@ -119,7 +100,7 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
     // ======================
     if (seleccion.coords) {
       try {
-        const mapBase64 = await loadImageAsBase64(
+        const mapBase64 = await loadMapFromAPI(
           getStaticMapUrl(
             seleccion.coords.lat,
             seleccion.coords.lng
