@@ -97,6 +97,10 @@
 
 .card p {
   font-size: 0.875rem; /* text-sm */
-  color: #6b7280;      /* gray-500 */
+  color: #6e7581;      /* gray-500 */
   line-height: 1.25;
+}
+
+.exportando .no-print {
+  display: none;
 }
