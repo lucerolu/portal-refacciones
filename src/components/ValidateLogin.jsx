@@ -1,5 +1,5 @@
 //src\components\ValidateLogin.jsx
-//malditaseanecesitohaceruncambio
+//
 
 import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -12,7 +12,9 @@ export default function ValidateLogin() {
     const token = params.get("token");
     if (!token) return;
 
-    fetch(`/api/validate-magic-link?token=${token}`)
+    fetch(`/api/validate-magic-link?token=${token}`, {
+      credentials: "include",
+    })
       .then((res) => {
         if (!res.ok) throw new Error();
         navigate("/portal");

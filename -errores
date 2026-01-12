@@ -1,0 +1,94 @@
+*   [33ma79b7a0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Merge pruebas-errores into main (resolviendo conflictos, va a quedar con clave, es de pruebas)
+[31m|[m[32m\[m  
+[31m|[m * [33m57b5bb8[m[33m ([m[1;31morigin/pruebas-errores[m[33m, [m[1;32mpruebas-errores[m[33m, [m[1;32mbackup-pruebas[m[33m)[m mapas
+[31m|[m * [33m0f82884[m correccion
+[31m|[m * [33me4e901a[m nmms que estaba mal una cuenta
+[31m|[m * [33m4e4ceca[m resend
+[31m|[m * [33m585226a[m i wasnt added the enviroment variables
+[31m|[m * [33mc29c4da[m Ahora sí, subiendo cambios para probar
+* [32m|[m [33md89d98e[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mbackup-main[m[33m)[m arregle algo
+* [32m|[m [33mdb60531[m cree una api interna para absorber la otra
+* [32m|[m [33m075af5c[m base64
+* [32m|[m [33m5fa63f7[m todavia no aparece el mapa
+* [32m|[m [33mfb6c21b[m correcion del mapa
+* [32m|[m [33m9539964[m mapa en pdf
+* [32m|[m [33m9876c6e[m modificaciones en el cuentaspanel para exportar la imagen
+* [32m|[m [33m87e467c[m update: arreglando detalles de paneles y api maps
+* [32m|[m [33m7974415[m update: implementación final de paneles de cuentas
+[32m|[m [32m|[m * [33m03b2020[m[33m ([m[1;32mfeature/magic-link-login[m[33m)[m feat: login con magic links (respaldo total)
+[32m|[m [32m|[m * [33mb3cb5c6[m update: solo paneles de cuentas y data bancaria
+[32m|[m [32m|[m[32m/[m  
+[32m|[m * [33m638ef29[m magiclink access
+[32m|[m[32m/[m  
+* [33m4de5a56[m unos detalles esteticos
+* [33m4028af7[m correccion
+* [33m72274f7[m unos deletes
+* [33m28810bc[m ---
+* [33madb7e76[m a
+* [33m937cd86[m una correccion
+* [33m7c340b8[m .
+* [33m21d8f94[m apidrive para archivos copartidos
+* [33m175c87a[m .
+* [33m5be0082[m a
+* [33md7ab690[m a
+* [33m3e4edd7[m css
+* [33m4d8818c[m a
+* [33m183f48f[m probablemente le di en su madre
+* [33m07d4f12[m juntas
+* [33m87574b9[m set fixed for tarjets
+* [33m8f26f52[m fixed panels
+* [33m57d357d[m neumatiics sections and cane
+* [33md76f659[m zapata account
+* [33m5a6abb2[m coinsicon and url update for sales
+* [33m5955674[m position fixed
+* [33m2a68f37[m responsive qr
+* [33m44dab7b[m changes in cuentaspanel.jsx
+* [33m58a8f9a[m el resto de las peaneles con loader
+* [33m04d2dee[m boletines, capacitacion y marketing
+* [33m0aefd2a[m boletines y capacitacion con ambos loaders
+* [33ma785eee[m estado de cuenta panel con loader
+* [33m045b714[m panelloader
+* [33m0ba63f5[m logs
+* [33m06f80ce[m fcdd
+* [33md9c2f3c[m le cambie el tiempo
+* [33m9850206[m fix del inframe del loader
+* [33m297f8c1[m h-70vh
+* [33ma16663a[m + cambios
+* [33m1ff6f75[m +min-h-0
+* [33m27a2416[m cambios para que se vea el loader
+* [33mfe33e27[m cambié el return
+* [33m17a7e53[m cambie el load
+* [33m37ab746[m a
+* [33m68d4bf1[m corregi un error
+* [33m3a9420b[m mas pruebas del loader
+* [33m7bb1c5c[m fix
+* [33me88c709[m prueba con loader
+* [33m286c0a6[m correccion
+* [33m3ef8111[m suspense on
+* [33m78280bf[m navbar
+* [33ma7270b9[m opciones para el modulo de compras
+* [33m42243f5[m panel de cuentas bancarias
+* [33mf33f984[m +politicas panel
+* [33m532f071[m changein environment variables
+* [33meb69fa9[m more panels
+* [33mcdd6499[m videospanel.jsx
+* [33m549e152[m unas mejoras
+* [33m505b398[m cosas
+* [33m1f668d5[m arreglos para la version de moviles
+* [33m95af8f5[m previewlink
+* [33m3e39fd4[m cambio en el endpoint
+* [33md5ffad4[m cambio de la variable de la clave
+* [33m6574d5a[m panel para el boton de capacitacion+
+* [33meaec0fa[m sthetic functional changes
+* [33m10031a6[m driveESC.js
+* [33m4c16035[m direct link for preview
+* [33m3977e6a[m direct link
+* [33md9b1452[m visualizer
+* [33m6d0867c[m adaptTree json
+* [33mc5e432b[m const match self to lower case empty
+* [33mc948c98[m adapttreee nodes
+* [33m45e46fc[m google apis dependency
+* [33m8b1ddb8[m service account key
+* [33m32576de[m lectura de google drive
+* [33m9a75352[m primer commit para el portal de refacciones
+* [33m22dec1a[m Initialize project using Create React App

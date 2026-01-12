@@ -19,7 +19,7 @@ export default function handler(req, res) {
 
   res.setHeader(
     "Set-Cookie",
-    `auth=true; Max-Age=${SESSION_DAYS * 24 * 60 * 60}; Path=/`
+    `auth=true; Max-Age=${SESSION_DAYS * 24 * 60 * 60}; Path=/; SameSite=Lax; Secure`
   );
 
   res.status(200).json({ ok: true });
