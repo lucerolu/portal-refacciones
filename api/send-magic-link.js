@@ -7,8 +7,10 @@ import crypto from "crypto";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// ⏱️ DURACIÓN DEL MAGIC LINK (20 minutos)
-const MAGIC_LINK_EXPIRATION_MINUTES = 30; // 👈 CAMBIA AQUÍ
+// 🔐 Almacén temporal
+global.magicLinks = global.magicLinks || new Map();
+
+const MAGIC_LINK_MINUTES = 20;
 
 export default async function handler(req, res) {
   const { email } = req.body;
@@ -17,15 +19,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Dominio no permitido" });
   }
 
-  // Token seguro
   const token = crypto.randomBytes(32).toString("hex");
 
-  // Guardar token (demo simple con cookie)
-  // 👉 En producción ideal usar DB o KV
-  res.setHeader(
-    "Set-Cookie",
-    `magicToken=${token}; Max-Age=${MAGIC_LINK_EXPIRATION_MINUTES * 60}; Path=/; HttpOnly`
-  );
+  global.magicLinks.set(token, {
+    email,
+    expires: Date.now() + MAGIC_LINK_MINUTES * 60 * 1000,
+  });
 
   const magicLink = `${process.env.NEXT_PUBLIC_BASE_URL}/validate?token=${token}`;
 
@@ -34,8 +33,8 @@ export default async function handler(req, res) {
     to: email,
     subject: "Acceso al portal Dimasur",
     html: `
-      <p>Da clic en el siguiente enlace para acceder:</p>
-      <a href="${magicLink}">${magicLink}</a>
+      <p>Tu acceso está listo:</p>
+      <a href="${magicLink}">Acceder al portal</a>
       <p>Este enlace expira en 20 minutos.</p>
     `,
   });

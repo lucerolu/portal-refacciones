@@ -3,19 +3,21 @@
 export default function handler(req, res) {
   const { token } = req.query;
 
-  if (!token) {
-    return res.status(400).json({ error: "Token inválido" });
+  const record = global.magicLinks?.get(token);
+
+  if (!record) {
+    return res.status(401).json({ error: "Token inválido" });
   }
 
-  // ⚠️ Demo simple: aceptamos cualquier token válido en cookie
-  const cookies = req.headers.cookie || "";
-
-  if (!cookies.includes(`magicToken=${token}`)) {
-    return res.status(401).json({ error: "Token expirado o inválido" });
+  if (Date.now() > record.expires) {
+    global.magicLinks.delete(token);
+    return res.status(401).json({ error: "Token expirado" });
   }
 
-  // ⏱️ SESIÓN ACTIVA (1 semana)
-  const SESSION_DAYS = 7; // 👈 
+  // 🧹 Se usa una sola vez
+  global.magicLinks.delete(token);
+
+  const SESSION_DAYS = 7;
 
   res.setHeader(
     "Set-Cookie",
