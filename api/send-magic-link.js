@@ -3,12 +3,9 @@
 //NECESARY:RESEND EN EL JSON 
 
 import { Resend } from "resend";
-import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// 🔐 Almacén temporal
-global.magicLinks = global.magicLinks || new Map();
 
 const MAGIC_LINK_MINUTES = 20;
 
@@ -19,12 +16,11 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Dominio no permitido" });
   }
 
-  const token = crypto.randomBytes(32).toString("hex");
-
-  global.magicLinks.set(token, {
-    email,
-    expires: Date.now() + MAGIC_LINK_MINUTES * 60 * 1000,
-  });
+  const token = jwt.sign(
+    { email },
+    process.env.MAGIC_LINK_SECRET,
+    { expiresIn: `${MAGIC_LINK_MINUTES}m` }
+  );
 
   const magicLink = `${process.env.NEXT_PUBLIC_BASE_URL}/validate?token=${token}`;
 

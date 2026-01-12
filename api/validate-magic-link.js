@@ -1,28 +1,26 @@
 //api\validate-magic-link.js
 
+import jwt from "jsonwebtoken";
+
 export default function handler(req, res) {
   const { token } = req.query;
 
-  const record = global.magicLinks?.get(token);
-
-  if (!record) {
-    return res.status(401).json({ error: "Token inválido" });
+  if (!token) {
+    return res.status(400).json({ error: "Token faltante" });
   }
 
-  if (Date.now() > record.expires) {
-    global.magicLinks.delete(token);
-    return res.status(401).json({ error: "Token expirado" });
+  try {
+    jwt.verify(token, process.env.MAGIC_LINK_SECRET);
+
+    const SESSION_DAYS = 7;
+
+    res.setHeader(
+      "Set-Cookie",
+      `auth=true; Max-Age=${SESSION_DAYS * 24 * 60 * 60}; Path=/; SameSite=Lax; Secure`
+    );
+
+    res.status(200).json({ ok: true });
+  } catch {
+    res.status(401).json({ error: "Token expirado o inválido" });
   }
-
-  // 🧹 Se usa una sola vez
-  global.magicLinks.delete(token);
-
-  const SESSION_DAYS = 7;
-
-  res.setHeader(
-    "Set-Cookie",
-    `auth=true; Max-Age=${SESSION_DAYS * 24 * 60 * 60}; Path=/; SameSite=Lax; Secure`
-  );
-
-  res.status(200).json({ ok: true });
 }
