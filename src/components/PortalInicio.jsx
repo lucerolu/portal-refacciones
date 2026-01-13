@@ -80,6 +80,7 @@ const sucursalesBonificaciones = [
 const comprasFormatos = [
   { nombre: "Seguimiento pedidos", url: "https://docs.google.com/spreadsheets/d/1ApXWPwKXZABhI6sYtYPPssYUBjUn5WleABOPKxeiVzs/edit?usp=sharing" },
   { nombre: "Seguimiento pagos", url: "https://docs.google.com/spreadsheets/d/1baGGvXTqdTTCZwx-WctaqZvo6AKGwfAJABR938E3lMc/edit?usp=sharing" },
+  { nombre: "Calendario de souvenirs", url: "https://drive.google.com/file/d/1bHExbtSw-tiKC-cgRW4JfwcQl9c1JbkY/view?usp=drive_link" },
 ];
 
 /* =======================
