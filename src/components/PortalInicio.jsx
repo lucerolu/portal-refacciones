@@ -139,7 +139,7 @@ export default function PortalInicio() {
         >
           <BarChart3 className="icon text-blue-900" />
           <h2>Dashboards</h2>
-          <p>Selecciona el dashboard que deseas consultar.</p>
+          <p>Da clic en el nombre del dashboard que deseas consultar.</p>
 
           <div className="mt-4 flex flex-col gap-2">
             <a
@@ -159,7 +159,7 @@ export default function PortalInicio() {
               rel="noopener noreferrer"
               className="btn-dashboard"
             >
-              📊 Compras, Ventas y Vendedores
+              📊 Compras (JD), Ventas y Cancelaciones
             </a>
           </div>
         </motion.div>
