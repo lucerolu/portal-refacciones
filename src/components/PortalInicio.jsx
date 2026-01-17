@@ -85,11 +85,11 @@ const comprasFormatos = [
 
 const dashboards = [
   {
-    nombre: "🧾 Compras y estado de cuenta",
+    nombre: "Compras y estado de cuenta",
     url: "https://dshb-dm-refacciones.streamlit.app/#resumen-general-de-compras-2025",
   },
   {
-    nombre: "📊 Compras, ventas, cancelaciones y  estadísticas de vendedores",
+    nombre: "Compras vs meta, ventas, cancelaciones y  estadísticas de vendedores",
     url: "https://dhs-dima-jd-compras-ventas-clientes2sgyrcdchkzitncmctkaxy.streamlit.app/",
   },
 ];
@@ -123,11 +123,13 @@ export default function PortalInicio() {
       if (
         liguesRef.current && !liguesRef.current.contains(e.target) &&
         bonificacionesRef.current && !bonificacionesRef.current.contains(e.target) &&
-        comprasRef.current && !comprasRef.current.contains(e.target)
+        comprasRef.current && !comprasRef.current.contains(e.target) &&
+        dashboardsRef.current && !dashboardsRef.current.contains(e.target)
       ) {
         setMenuAbierto(false);
         setBonificacionesAbierto(false);
         setComprasAbierto(false);
+        setDashboardsAbierto(false);
       }
     };
 
