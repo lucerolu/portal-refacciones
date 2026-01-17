@@ -132,19 +132,38 @@ export default function PortalInicio() {
       {/* ================= GRID ================= */}
       <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full z-20">
 
-        {/* Dashboard */}
-        <motion.a
-          href="https://dshb-dm-refacciones.streamlit.app/#resumen-general-de-compras-2025"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.05, y: -5 }}
+        <motion.div
+          whileHover={{ scale: 1.03, y: -5 }}
           className="card"
           style={{ "--card-color": "#1e3a8a" }}
         >
           <BarChart3 className="icon text-blue-900" />
-          <h2>Dashboard</h2>
-          <p>Visualiza estadísticas y reportes.</p>
-        </motion.a>
+          <h2>Dashboards</h2>
+          <p>Selecciona el dashboard que deseas consultar.</p>
+
+          <div className="mt-4 flex flex-col gap-2">
+            <a
+              onClick={(e) => e.stopPropagation()}
+              href="https://dshb-dm-refacciones.streamlit.app/#resumen-general-de-compras-2025"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-dashboard"
+            >
+              🧾 Compras / Estado de Cuenta
+            </a>
+
+            <a
+              onClick={(e) => e.stopPropagation()}
+              href="https://dhs-dima-jd-compras-ventas-clientes2sgyrcdchkzitncmctkaxy.streamlit.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-dashboard"
+            >
+              📊 Compras, Ventas y Vendedores
+            </a>
+          </div>
+        </motion.div>
+
 
         {/* ================= LIGUES ================= */}
         <div ref={liguesRef} className="relative">
