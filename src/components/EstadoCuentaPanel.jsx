@@ -27,7 +27,6 @@ export default function EstadoCuentaPanel({ onClose, panelRef }) {
       .then(data => {
         setTree(data);
 
-        // Garantizamos un mínimo de 300ms de loader elegante
         setTimeout(() => {
           if (!fallbackDone) {
             setLoading(false);
@@ -40,7 +39,8 @@ export default function EstadoCuentaPanel({ onClose, panelRef }) {
       });
 
     return () => clearTimeout(fallback);
-  }, []);
+  }, [fallbackDone]); // 👈 ESTA ES LA CLAVE
+
 
   // Carpeta actual
   const currentFolder = currentPath.reduce(

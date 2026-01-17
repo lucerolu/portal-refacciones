@@ -245,12 +245,13 @@ export default function CuentasPanel({ isOpen, onClose, panelRef }) {
               <div className="no-print mt-3 rounded-xl overflow-hidden border">
                 <iframe
                   src={seleccion.mapsUrl}
+                  title={`Mapa de ${seleccion.nombre}`}
                   width="100%"
                   height="200"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   className="rounded-xl"
-                ></iframe>
+                />
               </div>
             )}
             
