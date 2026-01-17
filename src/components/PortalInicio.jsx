@@ -83,6 +83,18 @@ const comprasFormatos = [
   { nombre: "Calendario de souvenirs", url: "https://drive.google.com/file/d/1bHExbtSw-tiKC-cgRW4JfwcQl9c1JbkY/view?usp=drive_link" },
 ];
 
+const dashboards = [
+  {
+    nombre: "🧾 Compras y estado de cuenta",
+    url: "https://dshb-dm-refacciones.streamlit.app/#resumen-general-de-compras-2025",
+  },
+  {
+    nombre: "📊 Compras, ventas, cancelaciones y  estadísticas de vendedores",
+    url: "https://dhs-dima-jd-compras-ventas-clientes2sgyrcdchkzitncmctkaxy.streamlit.app/",
+  },
+];
+
+
 /* =======================
    COMPONENT
 ======================= */
@@ -91,11 +103,13 @@ export default function PortalInicio() {
   const [bonificacionesAbierto, setBonificacionesAbierto] = useState(false);
   const [comprasAbierto, setComprasAbierto] = useState(false);
   const [activePanel, setActivePanel] = useState(null);
+  const [dashboardsAbierto, setDashboardsAbierto] = useState(false);
 
   const liguesRef = useRef(null);
   const bonificacionesRef = useRef(null);
   const comprasRef = useRef(null);
   const panelRef = useRef(null);
+  const dashboardsRef = useRef(null);
 
   /* =======================
      Click fuera GLOBAL
@@ -132,38 +146,51 @@ export default function PortalInicio() {
       {/* ================= GRID ================= */}
       <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full z-20">
 
-        <motion.div
-          whileHover={{ scale: 1.03, y: -5 }}
-          className="card"
-          style={{ "--card-color": "#1e3a8a" }}
-        >
-          <BarChart3 className="icon text-blue-900" />
-          <h2>Dashboards</h2>
-          <p>Da clic en el nombre del dashboard que deseas consultar.</p>
+        {/* ================= DASHBOARDS ================= */}
+        <div ref={dashboardsRef} className="relative">
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setDashboardsAbierto(!dashboardsAbierto);
+            }}
+            className="card cursor-pointer"
+            style={{ "--card-color": "#1e3a8a" }}
+          >
+            <BarChart3 className="icon text-blue-900" />
+            <h2>Dashboards</h2>
+            <p>Visualización de indicadores y reportes</p>
+            <ChevronDown
+              className={`transition-transform ${
+                dashboardsAbierto ? "rotate-180" : ""
+              }`}
+            />
+          </motion.div>
 
-          <div className="mt-4 flex flex-col gap-2">
-            <a
-              onClick={(e) => e.stopPropagation()}
-              href="https://dshb-dm-refacciones.streamlit.app/#resumen-general-de-compras-2025"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-dashboard"
-            >
-              🧾 Compras / Estado de Cuenta
-            </a>
-
-            <a
-              onClick={(e) => e.stopPropagation()}
-              href="https://dhs-dima-jd-compras-ventas-clientes2sgyrcdchkzitncmctkaxy.streamlit.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-dashboard"
-            >
-              📊 Compras (JD), Ventas y Cancelaciones
-            </a>
-          </div>
-        </motion.div>
-
+          <AnimatePresence>
+            {dashboardsAbierto && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute top-full left-0 mt-3 bg-white rounded-xl shadow-xl p-4 w-full z-50"
+              >
+                {dashboards.map((d, i) => (
+                  <a
+                    key={i}
+                    href={d.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-3 py-2 rounded-lg hover:bg-blue-100 transition"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {d.nombre}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* ================= LIGUES ================= */}
         <div ref={liguesRef} className="relative">
