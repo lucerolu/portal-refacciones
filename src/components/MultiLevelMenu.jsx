@@ -23,16 +23,6 @@ function MenuList({ items, level = 0, onOpenPanel, onSelectItem }) {
 function MenuItem({ item, onOpenPanel, onSelectItem }) {
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
 
-  const handleClick = (e) => {
-    e.stopPropagation();
-
-    if (item.type === "url" || item.type === "pdf") {
-      onSelectItem && onSelectItem(item);
-    } 
-    else if (item.type === "panel") {
-      onOpenPanel && onOpenPanel(item);
-    }
-  };
 
   if (item.type === "folder" || hasChildren) {
     return (

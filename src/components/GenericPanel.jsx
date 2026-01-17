@@ -1,5 +1,4 @@
 // src/components/GenericPanel.jsx
-import { motion } from "framer-motion";
 import MultiLevelDrawer from "./MultiLevelDrawer";
 
 export default function GenericPanel({ isOpen, onClose, title, children }) {

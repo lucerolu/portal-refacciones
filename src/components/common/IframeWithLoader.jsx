@@ -61,12 +61,14 @@ export default function IframeWithLoader({ src, className }) {
 
       <iframe
         src={src}
+        title="Contenido embebido"
         onLoad={handleLoad}
         className={`w-full h-full rounded-lg border-0 ${className}`}
         loading="lazy"
         allow="fullscreen"
         style={{ pointerEvents: hideLoader ? "auto" : "none" }}
       />
+
     </div>
   );
 }
