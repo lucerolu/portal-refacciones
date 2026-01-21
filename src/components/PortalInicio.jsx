@@ -441,7 +441,7 @@ export default function PortalInicio() {
           style={{ "--card-color": "#f71ac0ff" }}
         >
           <PackageSearch className="icon text-pink-500" />
-          <h2>Inventarios</h2>
+          <h2>Inventarios y costos</h2>
         </motion.div>
 
         {/* Videos promocionales */}
