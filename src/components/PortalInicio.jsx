@@ -78,7 +78,7 @@ const sucursalesBonificaciones = [
 ];
 
 const comprasFormatos = [
-  { nombre: "Seguimiento pedidos", url: "https://docs.google.com/spreadsheets/d/1JHvKQMD4WhmYCIKz55r4QKQgwbjVw5PKa_2kqGI73Dw/edit?gid=0#gid=0" },
+  { nombre: "Seguimiento pedidos", url: "https://docs.google.com/spreadsheets/d/1JHvKQMD4WhmYCIKz55r4QKQgwbjVw5PKa_2kqGI73Dw/edit?usp=sharing" },
   { nombre: "Seguimiento pagos", url: "https://docs.google.com/spreadsheets/d/1baGGvXTqdTTCZwx-WctaqZvo6AKGwfAJABR938E3lMc/edit?usp=sharing" },
   { nombre: "Calendario de souvenirs", url: "https://drive.google.com/file/d/1bHExbtSw-tiKC-cgRW4JfwcQl9c1JbkY/view?usp=drive_link" },
 ];
